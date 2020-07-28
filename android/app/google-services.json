@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "866715179835",
+    "firebase_url": "https://cha-de-lingerie-ebda2.firebaseio.com",
+    "project_id": "cha-de-lingerie-ebda2",
+    "storage_bucket": "cha-de-lingerie-ebda2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866715179835:android:06c519c31cba5fee5db51e",
+        "android_client_info": {
+          "package_name": "com.example.cha_de_lingerie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866715179835-ltf627tshqockbnckrpuognp92ua94gb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbbDBpFhmZh4wP56CXRff2y1Lp81xdrBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866715179835-ltf627tshqockbnckrpuognp92ua94gb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
