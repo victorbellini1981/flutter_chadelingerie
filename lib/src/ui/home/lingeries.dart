@@ -22,6 +22,7 @@ class _LingeriesState extends State<Lingeries> {
   List<bool> opcao = new List<bool>();
   bool selectprod = false;
   bool comp = false;
+  int indexP = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,12 @@ class _LingeriesState extends State<Lingeries> {
                                 child:
                                     Image.asset('assets/images/semfoto.jpeg'),
                                 onTap: () {
-                                  print('ok');
+                                  indexP = index;
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        _buildAboutDialog(context),
+                                  );
                                 },
                               )
                             : InkWell(
@@ -86,7 +92,12 @@ class _LingeriesState extends State<Lingeries> {
                                     'https://sistemaagely.com.br:8345/' +
                                         '${listaProdutos[index].link}'),
                                 onTap: () {
-                                  print('ok');
+                                  indexP = index;
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        _buildAboutDialog(context),
+                                  );
                                 },
                               ),
                         SizedBox(
@@ -215,5 +226,48 @@ class _LingeriesState extends State<Lingeries> {
         ),
       ),
     ));
+  }
+
+  Widget _buildAboutDialog(BuildContext context) {
+    return new AlertDialog(
+        contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+        content: Wrap(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 4),
+              child: Column(
+                children: <Widget>[
+                  listaProdutos[indexP].link == null ||
+                          listaProdutos[indexP].link == 'null'
+                      ? InkWell(
+                          child: Image.asset('assets/images/semfoto.jpeg'),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                        )
+                      : InkWell(
+                          child: Image.network(
+                              'https://sistemaagely.com.br:8345/' +
+                                  '${listaProdutos[indexP].link}'),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    '${listaProdutos[indexP].descricao}',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  Text(
+                    'Valor: ${listaProdutos[indexP].preco_tabela}',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }
