@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:cha_de_lingerie/src/models/Produtos.dart';
+import 'package:cha_de_lingerie/src/models/Usuario.dart';
 import 'package:cha_de_lingerie/src/models/UsuarioLembrar.dart';
 import 'package:cha_de_lingerie/src/public/globals.dart';
-import 'package:cha_de_lingerie/src/ui/home/principal.dart';
+import 'package:cha_de_lingerie/src/ui/home/perfil.dart';
 import 'package:cha_de_lingerie/src/ui/login/cadastro.dart';
+import 'package:cha_de_lingerie/src/ui/login/login_recuperasenha.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cha_de_lingerie/src/public/style.dart';
@@ -42,7 +44,9 @@ class _LoginState extends State<Login> {
     Map retorno = await promessa(_scaffoldKey, "GetProdutos", obj);
     if (retorno["situacao"] == "sucesso") {
       list = retorno["obj"];
-      listaProduto = list.map((produto) => Produtos.fromJson(produto)).toList();
+      listaProdutos =
+          list.map((produto) => Produtos.fromJson(produto)).toList();
+      normal = list.map((produto) => Produtos.fromJson(produto)).toList();
     }
   }
 
@@ -66,6 +70,12 @@ class _LoginState extends State<Login> {
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 
+    Usuario usuario = Usuario();
+    usuario.ativo = true;
+    usuario.nome = user.displayName;
+    usuario.email = user.email;
+    usuario.senha = "123456";
+
     nomeNoiva = user.displayName;
     fotoNoiva = user.photoUrl;
 
@@ -75,8 +85,7 @@ class _LoginState extends State<Login> {
   void signOutGoogle() async {
     await googleSignIn.signOut();
 
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Principal()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Perfil()));
   }
 
   bool isLoggedIn = false;
@@ -114,8 +123,15 @@ class _LoginState extends State<Login> {
         fotoDaNoiva = profileData;
         nomeNoiva = "${profileData['name']}";
         fotoNoiva = "${profileData['picture']['data']['url']}";
+
+        Usuario usuario = Usuario();
+        usuario.ativo = true;
+        usuario.nome = "${profileData['name']}";
+        usuario.email = "${profileData['email']}";
+        usuario.senha = "123456";
+
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Principal()));
+            context, MaterialPageRoute(builder: (context) => Perfil()));
         break;
     }
   }
@@ -124,11 +140,19 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     final login = new TextFormField(
       decoration: const InputDecoration(
-          labelText: 'E-mail',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border: OutlineInputBorder(),
-          focusColor: Color(0xFF1976d3),
-          prefixIcon: Icon(Icons.person)),
+        labelText: 'E-mail',
+        labelStyle: TextStyle(color: Colors.red),
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+        prefixIcon: Icon(
+          Icons.person,
+          color: Colors.red,
+        ),
+      ),
       keyboardType: TextInputType.text,
       controller: _loginController,
       validator: (value) {
@@ -142,10 +166,14 @@ class _LoginState extends State<Login> {
     final senha = new TextFormField(
       decoration: const InputDecoration(
         labelText: 'Senha',
+        labelStyle: TextStyle(color: Colors.red),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(),
-        prefixIcon: Icon(Icons.lock),
-        focusColor: Color(0xFF1976d3),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+        prefixIcon: Icon(Icons.lock, color: Colors.red),
       ),
       obscureText: true,
       keyboardType: TextInputType.text,
@@ -162,6 +190,7 @@ class _LoginState extends State<Login> {
       children: <Widget>[
         SizedBox(width: 80),
         Switch(
+          activeColor: Colors.red,
           value: lembrar,
           onChanged: (value) {
             setState(() {
@@ -179,10 +208,10 @@ class _LoginState extends State<Login> {
 
     void entrar() async {
       fotoNoiva = null;
-      nomeNoiva = ' ';
+      nomeNoiva = ' Marjorie Rafaela';
       lista2();
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Principal()));
+          context, MaterialPageRoute(builder: (context) => Perfil()));
       if (_formKey.currentState.validate()) {
         Map obj = Map();
         obj["email"] = login.controller.text.trim();
@@ -199,11 +228,12 @@ class _LoginState extends State<Login> {
             final prefs = await SharedPreferences.getInstance();
             prefs.setString('usuarioLembrar', json.encode(usuarioLembrar));
           }
-          fotoNoiva = null;
           nomeNoiva = obj["nome"];
+          fotoNoiva = null;
+
           lista2();
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Principal()));
+              context, MaterialPageRoute(builder: (context) => Perfil()));
         } else {
           _scaffoldKey.currentState
               .showSnackBar(new SnackBar(content: new Text(retorno["msg"])));
@@ -264,7 +294,8 @@ class _LoginState extends State<Login> {
         child: Text("Esqueci minha senha",
             style: TextStyle(color: Colors.red, fontSize: 16)),
         onTap: () {
-          // do what you need to do when "Click here" gets clicked
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => LoginRecuperaSenha()));
         });
     final lnkCadastrar = GestureDetector(
         child: Text("Não tem cadastro? Cadastre-se",

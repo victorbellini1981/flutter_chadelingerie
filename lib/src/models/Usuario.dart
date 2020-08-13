@@ -4,7 +4,7 @@ class Usuario {
   String email;
   String senha;
   bool ativo;
-  Noiva noiva;
+  Pessoa pessoa;
 
   Usuario(
       {this.idusuario,
@@ -12,7 +12,7 @@ class Usuario {
       this.email,
       this.senha,
       this.ativo,
-      this.noiva});
+      this.pessoa});
 
   Usuario.fromJson(Map<String, dynamic> json) {
     idusuario = json['idusuario'];
@@ -20,7 +20,8 @@ class Usuario {
     email = json['email'];
     senha = json['senha'];
     ativo = json['ativo'];
-    noiva = json['noiva'] != null ? new Noiva.fromJson(json['noiva']) : null;
+    pessoa =
+        json['pessoa'] != null ? new Pessoa.fromJson(json['pessoa']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -30,52 +31,49 @@ class Usuario {
     data['email'] = this.email;
     data['senha'] = this.senha;
     data['ativo'] = this.ativo;
-    if (this.noiva != null) {
-      data['noiva'] = this.noiva.toJson();
+    if (this.pessoa != null) {
+      data['pessoa'] = this.pessoa.toJson();
     }
     return data;
   }
 }
 
-class Noiva {
-  int idnoiva;
+class Pessoa {
+  int idpessoa;
+  int idusuario;
   String nome;
   String cpf;
   String fotoPerfil;
   List fotoAlbum;
-  List listaPresentes;
   double meta;
-  double vlrMeta;
-  String tamLin;
+  double valorCompras;
   String telefone;
   Evento evento;
   //ListaPresentes listapresentes;
 
-  Noiva({
-    this.idnoiva,
+  Pessoa({
+    this.idpessoa,
+    this.idusuario,
     this.nome,
     this.cpf,
     this.fotoPerfil,
     this.fotoAlbum,
-    this.listaPresentes,
     this.meta,
-    this.vlrMeta,
-    this.tamLin,
+    this.valorCompras,
     this.telefone,
     this.evento,
     /*this.listapresentes*/
   });
 
-  Noiva.fromJson(Map<String, dynamic> json) {
-    idnoiva = json['idnoiva'];
+  Pessoa.fromJson(Map<String, dynamic> json) {
+    idpessoa = json['idpessoa'];
+    idusuario = json['idusuario'];
     nome = json['nome'];
     cpf = json['cpf'];
     fotoPerfil = json['fotoPerfil'];
     fotoAlbum = json['fotoAlbum'];
-    listaPresentes = json['listaPresentes'];
     meta = json['meta'];
-    vlrMeta = json['vlrMeta'];
-    tamLin = json['tamLin'];
+    valorCompras = json['valorCompras'];
     telefone = json['telefone'];
 
     evento =
@@ -87,73 +85,23 @@ class Noiva {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idnoiva'] = this.idnoiva;
+    data['idpessoa'] = this.idpessoa;
+    data['idusuario'] = this.idusuario;
     data['nome'] = this.nome;
     data['cpf'] = this.cpf;
     data['fotoPerfil'] = this.fotoPerfil;
     data['fotoAlbum'] = this.fotoAlbum;
-    data['listaPresentes'] = this.listaPresentes;
     data['meta'] = this.meta;
-    data['vlrMeta'] = this.vlrMeta;
-    data['tamLin'] = this.tamLin;
+    data['valorCompras'] = this.valorCompras;
     data['telefone'] = this.telefone;
 
     if (this.evento != null) {
       data['evento'] = this.evento.toJson();
     }
-    /*if (this.listapresentes != null) {
-      data['listapresentes'] = this.listapresentes.toJson();
-    }*/
+
     return data;
   }
 }
-
-/*class ListaPresentes {
-  String idlistapresentes;
-  int idnoiva;
-  String referencia;
-  String descricao;
-  String tamanho;
-  // ignore: non_constant_identifier_names
-  double preco_tabela;
-  String marca;
-  String link;
-
-  ListaPresentes(
-      {this.idlistapresentes,
-      this.idnoiva,
-      this.referencia,
-      this.descricao,
-      this.tamanho,
-      // ignore: non_constant_identifier_names
-      this.preco_tabela,
-      this.marca,
-      this.link});
-
-  ListaPresentes.fromJson(Map<String, dynamic> json) {
-    idlistapresentes = json['idlistapresentes'];
-    idnoiva = json['idnoiva'];
-    referencia = json['referencia'];
-    descricao = json['descricao'];
-    tamanho = json['tamanho'];
-    preco_tabela = json['preco_tabela'];
-    marca = json['marca'];
-    link = json['link'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idlistapresentes'] = this.idlistapresentes;
-    data['idnoiva'] = this.idnoiva;
-    data['referencia'] = this.referencia;
-    data['descricao'] = this.descricao;
-    data['tamanho'] = this.tamanho;
-    data['preco_tabela'] = this.preco_tabela;
-    data['marca'] = this.marca;
-    data['link'] = this.link;
-    return data;
-  }
-}*/
 
 class Evento {
   int idevento;
@@ -213,6 +161,37 @@ class Evento {
     data['complemento'] = this.complemento;
     data['bairro'] = this.bairro;
     data['cidade'] = this.cidade;
+    return data;
+  }
+}
+
+class ListaProdutos {
+  int idlistaprodutos;
+  int idpessoa;
+  int idevento;
+  List listadepresentes;
+
+  ListaProdutos({
+    this.idlistaprodutos,
+    this.idpessoa,
+    this.idevento,
+    this.listadepresentes,
+  });
+
+  ListaProdutos.fromJson(Map<String, dynamic> json) {
+    idlistaprodutos = json['idlistaprodutos'];
+    idpessoa = json['idpessoa'];
+    idevento = json['idevento'];
+    listadepresentes = json['listadeprodutos'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['idlistaprodutos'] = this.idlistaprodutos;
+    data['idpessoa'] = this.idpessoa;
+    data['idevento'] = this.idevento;
+    data['listadepresentes'] = this.listadepresentes;
+
     return data;
   }
 }

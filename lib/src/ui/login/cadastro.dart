@@ -27,8 +27,13 @@ class _CadastroState extends State<Cadastro> {
     final nome = TextFormField(
       decoration: const InputDecoration(
         labelText: 'Nome Completo',
+        labelStyle: TextStyle(color: Colors.red),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
       ),
       keyboardType: TextInputType.text,
       controller: txtnome,
@@ -42,9 +47,15 @@ class _CadastroState extends State<Cadastro> {
 
     final login = TextFormField(
       decoration: const InputDecoration(
-          labelText: 'E-mail',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border: OutlineInputBorder()),
+        labelText: 'E-mail',
+        labelStyle: TextStyle(color: Colors.red),
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+      ),
       keyboardType: TextInputType.text,
       controller: txtlogin,
       validator: (value) {
@@ -57,9 +68,15 @@ class _CadastroState extends State<Cadastro> {
 
     final senha = TextFormField(
       decoration: const InputDecoration(
-          labelText: 'Senha',
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border: OutlineInputBorder()),
+        labelText: 'Senha',
+        labelStyle: TextStyle(color: Colors.red),
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+      ),
       keyboardType: TextInputType.text,
       controller: txtsenha,
       validator: (value) {
