@@ -20,31 +20,9 @@ class _CadastroState extends State<Cadastro> {
 
   TextEditingController txtsenha = new TextEditingController();
   TextEditingController txtlogin = new TextEditingController();
-  TextEditingController txtnome = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final nome = TextFormField(
-      decoration: const InputDecoration(
-        labelText: 'Nome Completo',
-        labelStyle: TextStyle(color: Colors.red),
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
-        ),
-        focusedBorder:
-            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-      ),
-      keyboardType: TextInputType.text,
-      controller: txtnome,
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Campo obrigatório';
-        }
-        return null;
-      },
-    );
-
     final login = TextFormField(
       decoration: const InputDecoration(
         labelText: 'E-mail',
@@ -96,8 +74,6 @@ class _CadastroState extends State<Cadastro> {
           ));*/
 
       Usuario usuario = Usuario();
-      usuario.ativo = true;
-      usuario.nome = txtnome.text;
       usuario.email = txtlogin.text;
       usuario.senha = txtsenha.text;
 
@@ -166,8 +142,6 @@ class _CadastroState extends State<Cadastro> {
                     SizedBox(
                       height: 30,
                     ),
-                    nome,
-                    SizedBox(height: 10),
                     login,
                     SizedBox(height: 10),
                     senha,

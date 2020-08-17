@@ -71,13 +71,12 @@ class _LoginState extends State<Login> {
     assert(user.uid == currentUser.uid);
 
     Usuario usuario = Usuario();
-    usuario.ativo = true;
-    usuario.nome = user.displayName;
     usuario.email = user.email;
     usuario.senha = "123456";
 
     nomeNoiva = user.displayName;
     fotoNoiva = user.photoUrl;
+    emailNoiva = user.email;
 
     return 'Login com google ok: $user';
   }
@@ -123,10 +122,9 @@ class _LoginState extends State<Login> {
         fotoDaNoiva = profileData;
         nomeNoiva = "${profileData['name']}";
         fotoNoiva = "${profileData['picture']['data']['url']}";
+        emailNoiva = "${profileData['email']}";
 
         Usuario usuario = Usuario();
-        usuario.ativo = true;
-        usuario.nome = "${profileData['name']}";
         usuario.email = "${profileData['email']}";
         usuario.senha = "123456";
 
@@ -209,10 +207,11 @@ class _LoginState extends State<Login> {
     void entrar() async {
       fotoNoiva = null;
       nomeNoiva = ' Marjorie Rafaela';
+      emailNoiva = 'majurap@gmail.com';
       lista2();
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Perfil()));
-      if (_formKey.currentState.validate()) {
+      /*if (_formKey.currentState.validate()) {
         Map obj = Map();
         obj["email"] = login.controller.text.trim();
         obj["senha"] =
@@ -229,7 +228,8 @@ class _LoginState extends State<Login> {
             prefs.setString('usuarioLembrar', json.encode(usuarioLembrar));
           }
           nomeNoiva = obj["nome"];
-          fotoNoiva = null;
+          fotoNoiva = obj["fotoPerfil"];
+          emailNoiva = obj["email"];
 
           lista2();
           Navigator.push(
@@ -238,7 +238,7 @@ class _LoginState extends State<Login> {
           _scaffoldKey.currentState
               .showSnackBar(new SnackBar(content: new Text(retorno["msg"])));
         }
-      }
+      }*/
     }
 
     final btnEntrar = SizedBox(

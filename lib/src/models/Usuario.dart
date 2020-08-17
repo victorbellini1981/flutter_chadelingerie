@@ -1,25 +1,15 @@
 class Usuario {
   int idusuario;
-  String nome;
   String email;
   String senha;
-  bool ativo;
   Pessoa pessoa;
 
-  Usuario(
-      {this.idusuario,
-      this.nome,
-      this.email,
-      this.senha,
-      this.ativo,
-      this.pessoa});
+  Usuario({this.idusuario, this.email, this.senha, this.pessoa});
 
   Usuario.fromJson(Map<String, dynamic> json) {
     idusuario = json['idusuario'];
-    nome = json['nome'];
     email = json['email'];
     senha = json['senha'];
-    ativo = json['ativo'];
     pessoa =
         json['pessoa'] != null ? new Pessoa.fromJson(json['pessoa']) : null;
   }
@@ -27,10 +17,8 @@ class Usuario {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['idusuario'] = this.idusuario;
-    data['nome'] = this.nome;
     data['email'] = this.email;
     data['senha'] = this.senha;
-    data['ativo'] = this.ativo;
     if (this.pessoa != null) {
       data['pessoa'] = this.pessoa.toJson();
     }
@@ -42,11 +30,10 @@ class Pessoa {
   int idpessoa;
   int idusuario;
   String nome;
+  String email;
   String cpf;
   String fotoPerfil;
   List fotoAlbum;
-  double meta;
-  double valorCompras;
   String telefone;
   Evento evento;
   //ListaPresentes listapresentes;
@@ -55,11 +42,10 @@ class Pessoa {
     this.idpessoa,
     this.idusuario,
     this.nome,
+    this.email,
     this.cpf,
     this.fotoPerfil,
     this.fotoAlbum,
-    this.meta,
-    this.valorCompras,
     this.telefone,
     this.evento,
     /*this.listapresentes*/
@@ -69,11 +55,10 @@ class Pessoa {
     idpessoa = json['idpessoa'];
     idusuario = json['idusuario'];
     nome = json['nome'];
+    email = json['email'];
     cpf = json['cpf'];
     fotoPerfil = json['fotoPerfil'];
     fotoAlbum = json['fotoAlbum'];
-    meta = json['meta'];
-    valorCompras = json['valorCompras'];
     telefone = json['telefone'];
 
     evento =
@@ -88,11 +73,10 @@ class Pessoa {
     data['idpessoa'] = this.idpessoa;
     data['idusuario'] = this.idusuario;
     data['nome'] = this.nome;
+    data['email'] = this.email;
     data['cpf'] = this.cpf;
     data['fotoPerfil'] = this.fotoPerfil;
     data['fotoAlbum'] = this.fotoAlbum;
-    data['meta'] = this.meta;
-    data['valorCompras'] = this.valorCompras;
     data['telefone'] = this.telefone;
 
     if (this.evento != null) {

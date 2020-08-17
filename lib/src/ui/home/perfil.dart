@@ -26,10 +26,12 @@ class _PerfilState extends State<Perfil> {
   void initState() {
     super.initState();
     txtnome.text = nomeNoiva;
+    txtemail.text = emailNoiva;
     getUrlServidor();
   }
 
   TextEditingController txtnome = new TextEditingController();
+  TextEditingController txtemail = new TextEditingController();
   TextEditingController txttelefone = new TextEditingController();
   TextEditingController txtcpf = new TextEditingController();
   TextEditingController txtdata = new TextEditingController();
@@ -183,6 +185,27 @@ class _PerfilState extends State<Perfil> {
           )),
       keyboardType: TextInputType.text,
       controller: txtnome,
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Campo obrigatório';
+        }
+        return null;
+      },
+    );
+
+    final email = TextFormField(
+      decoration: const InputDecoration(
+        labelText: 'E-mail',
+        labelStyle: TextStyle(color: Colors.red),
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.red),
+        ),
+        focusedBorder:
+            OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+      ),
+      keyboardType: TextInputType.text,
+      controller: txtemail,
       validator: (value) {
         if (value.isEmpty) {
           return 'Campo obrigatório';
@@ -681,8 +704,7 @@ class _PerfilState extends State<Perfil> {
                 noiva.nome = txtnome.text;
                 noiva.cpf = txtcpf.text;
                 noiva.telefone = txttelefone.text;
-                noiva.valorCompras = valorCompras;
-                noiva.meta = meta;
+                
                 Evento evento = Evento();
                 evento.msg = txtmensagem.text;
                 evento.data = txtdata.text;
@@ -738,6 +760,8 @@ class _PerfilState extends State<Perfil> {
                         style: TextStyle(color: Colors.red, fontSize: 20)),
                     SizedBox(height: 10),
                     nome,
+                    SizedBox(height: 10),
+                    email,
                     SizedBox(height: 10),
                     cpf,
                     SizedBox(height: 10),

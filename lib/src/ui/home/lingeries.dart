@@ -1,3 +1,4 @@
+import 'package:cha_de_lingerie/core/utils.dart';
 import 'package:cha_de_lingerie/src/models/Produtos.dart';
 import 'package:cha_de_lingerie/src/public/globals.dart';
 import 'package:cha_de_lingerie/src/ui/home/principal.dart';
@@ -23,6 +24,94 @@ class _LingeriesState extends State<Lingeries> {
   bool selectprod = false;
   bool comp = false;
   int indexP = 0;
+  var referenciaP = '';
+  var linkP = '';
+  List linkProd = List();
+  var descricaoProd = '';
+  var tamanhosP = '';
+  List tamanhosProd = List();
+  // ignore: non_constant_identifier_names
+  var preco_tabelaProd = 0.0;
+  AlertDialog prod = AlertDialog();
+
+  detalhesP() async {
+    Map retorno = await promessaB(_scaffoldKey, "GetProduto", referenciaP);
+    if (retorno["situacao"] == "sucesso") {
+      linkP = retorno['obj']['link'];
+      linkP = linkP.replaceAll("{", "");
+      linkP = linkP.replaceAll("}", "");
+      linkProd = linkP.split(',');
+      descricaoProd = retorno['obj']['descricao'];
+      tamanhosP = retorno['obj']['tamanhos'];
+      tamanhosP = tamanhosP.replaceAll("{", "");
+      tamanhosP = tamanhosP.replaceAll("}", "");
+      List tam = List();
+      tam = tamanhosP.split(',');
+      tamanhosProd.add(tam[0]);
+      for (int i = 0; i < tam.length; i++) {
+        comp = false;
+        for (int j = 0; j < tamanhosProd.length; i++) {
+          if (tam[i] == tamanhosProd[j]) {
+            comp = true;
+            break;
+          }
+        }
+        if (comp == false) {
+          tamanhosProd.add(tam[i]);
+        }
+      }
+      preco_tabelaProd = retorno['obj']['preco_tabela'];
+      prod = AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+          content: Wrap(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(left: 4),
+                child: Column(
+                  children: <Widget>[
+                    listaProdutos[indexP].link == null ||
+                            listaProdutos[indexP].link == 'null'
+                        ? InkWell(
+                            child: Image.asset('assets/images/semfoto.jpeg'),
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        : InkWell(
+                            child: Image.network(
+                                'https://sistemaagely.com.br:8345/' +
+                                    linkProd[0]),
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      descricaoProd,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    Text(
+                      'Tamanhos: ' + tamanhosP,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    Text(
+                      'Valor: ' + preco_tabelaProd.toString(),
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ));
+      Navigator.of(context).pop();
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => prod,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +169,8 @@ class _LingeriesState extends State<Lingeries> {
                                     Image.asset('assets/images/semfoto.jpeg'),
                                 onTap: () {
                                   indexP = index;
+                                  referenciaP =
+                                      '${listaProdutos[index].referencia}';
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
@@ -93,6 +184,8 @@ class _LingeriesState extends State<Lingeries> {
                                         '${listaProdutos[index].link}'),
                                 onTap: () {
                                   indexP = index;
+                                  referenciaP =
+                                      '${listaProdutos[index].referencia}';
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) =>
@@ -229,45 +322,9 @@ class _LingeriesState extends State<Lingeries> {
   }
 
   Widget _buildAboutDialog(BuildContext context) {
-    return new AlertDialog(
-        contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-        content: Wrap(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(left: 4),
-              child: Column(
-                children: <Widget>[
-                  listaProdutos[indexP].link == null ||
-                          listaProdutos[indexP].link == 'null'
-                      ? InkWell(
-                          child: Image.asset('assets/images/semfoto.jpeg'),
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                        )
-                      : InkWell(
-                          child: Image.network(
-                              'https://sistemaagely.com.br:8345/' +
-                                  '${listaProdutos[indexP].link}'),
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Text(
-                    '${listaProdutos[indexP].descricao}',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  Text(
-                    'Valor: ${listaProdutos[indexP].preco_tabela}',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ));
+    detalhesP();
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }

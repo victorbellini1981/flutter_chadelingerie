@@ -50,6 +50,37 @@ Future<Map<String, dynamic>> promessa(
   }
 }
 
+Future<Map<String, dynamic>> promessaB(
+    GlobalKey<ScaffoldState> scaffoldKey, String servico, Object obj) async {
+  //String objjson = json.encode(obj);
+  /*String url =
+      "${configApp.urlServidor}/${configApp.servlet}?tela=${servico}&obj=${objjson}";*/
+  //String url = "${configApp.urlServidor}/${configApp.servlet}?tela=${servico}";
+  String url =
+      // ignore: unnecessary_brace_in_string_interps
+      'https://sistemaagely.com.br:8345/ChaDeLingerie07072020/chadelingerie?metodo=${servico}&referencia=${obj}';
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    try {
+      return json.decode(response.body);
+    } catch (e) {
+      //throw Exception('Formato inválido de retorno');
+      scaffoldKey.currentState.showSnackBar(new SnackBar(
+          content: new Text(
+              "Falha ao ler dados do servidor! Verifique sua conexão com a internet.")));
+
+      return null;
+    }
+  } else {
+    //throw Exception('Failed to load post');
+    scaffoldKey.currentState.showSnackBar(new SnackBar(
+        content: new Text(
+            "Falha de comunicação! Verifique sua conexão com a internet.")));
+    return null;
+  }
+}
+
 String textToMd5(String text) {
   return md5.convert(utf8.encode(text)).toString();
 }
