@@ -18,6 +18,7 @@ class _LingeriesState extends State<Lingeries> {
   @override
   void initState() {
     super.initState();
+    getUrlServidor();
   }
 
   List<bool> opcao = new List<bool>();
@@ -29,6 +30,7 @@ class _LingeriesState extends State<Lingeries> {
   List linkProd = List();
   var descricaoProd = '';
   var tamanhosP = '';
+  List tam = List();
   List tamanhosProd = List();
   // ignore: non_constant_identifier_names
   var preco_tabelaProd = 0.0;
@@ -45,7 +47,6 @@ class _LingeriesState extends State<Lingeries> {
       tamanhosP = retorno['obj']['tamanhos'];
       tamanhosP = tamanhosP.replaceAll("{", "");
       tamanhosP = tamanhosP.replaceAll("}", "");
-      List tam = List();
       tam = tamanhosP.split(',');
       tamanhosProd.add(tam[0]);
       for (int i = 0; i < tam.length; i++) {
@@ -92,9 +93,25 @@ class _LingeriesState extends State<Lingeries> {
                       descricaoProd,
                       style: TextStyle(color: Colors.red),
                     ),
-                    Text(
-                      'Tamanhos: ' + tamanhosP,
-                      style: TextStyle(color: Colors.red),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Tamanhos: ',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: tamanhosProd.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text('${tamanhosProd[index]}')
+                                  ],
+                                ),
+                              );
+                            }),
+                      ],
                     ),
                     Text(
                       'Valor: ' + preco_tabelaProd.toString(),
@@ -115,8 +132,12 @@ class _LingeriesState extends State<Lingeries> {
 
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i < listaProdutos.length; i++) {
-      opcao.add(false);
+    if (listaProdutos.length != 0) {
+      for (int i = 0; i < listaProdutos.length; i++) {
+        opcao.add(false);
+      }
+    } else {
+      opcao = [];
     }
     void itemChange(bool val, int index) {
       setState(() {

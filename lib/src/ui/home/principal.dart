@@ -16,30 +16,36 @@ class Principal extends StatefulWidget {
   _PrincipalState createState() => _PrincipalState();
 }
 
-class _PrincipalState extends State<Principal> {
-  final List<Widget> _widgetOptions = [
+class _PrincipalState extends State<Principal>
+    with SingleTickerProviderStateMixin {
+  final _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  List<Widget> _widgetOptions = [
     Inicial(),
     Presentes(),
     Lingeries(),
     Convidados()
   ];
 
+  TabController controller;
+
   @override
   void initState() {
     super.initState();
+    controller = TabController(length: _widgetOptions.length, vsync: this);
+    controller.animateTo(selectedIndex);
     getUrlServidor();
   }
 
-  void _onItemTapped(int index) {
-    listaProdutos = normal;
-    setState(() {
-      selectedIndex = index;
-    });
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: PopupMenuButton(
           color: Colors.red,
@@ -51,6 +57,7 @@ class _PrincipalState extends State<Principal> {
             PopupMenuItem(
               child: GestureDetector(
                 onTap: () {
+                  selectedIndex = 0;
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Perfil()));
                 },
@@ -74,6 +81,7 @@ class _PrincipalState extends State<Principal> {
             PopupMenuItem(
               child: GestureDetector(
                 onTap: () {
+                  selectedIndex = 0;
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Login()));
                 },
@@ -126,7 +134,6 @@ class _PrincipalState extends State<Principal> {
                       lin = true;
                       if (cam == true) {
                         listaProdutos = normal;
-                        print('${listaProdutos[2].descricao}');
                       }
                       filtroLingerie = [];
                       for (int i = 0; i < listaProdutos.length; i++) {
@@ -182,10 +189,40 @@ class _PrincipalState extends State<Principal> {
           ),
         ],
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(selectedIndex),
+      body: TabBarView(
+        controller: controller,
+        children: _widgetOptions,
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      /*Center(
+          child: _widgetOptions.elementAt(selectedIndex),
+        ),*/
+      bottomNavigationBar: new TabBar(
+        tabs: [
+          Tab(
+            icon: new Icon(Icons.home),
+            text: 'Inicial',
+          ),
+          Tab(
+            icon: new Icon(Icons.list),
+            text: 'Presentes',
+          ),
+          Tab(
+            icon: new Icon(Icons.add),
+            text: 'Lingeries',
+          ),
+          Tab(
+            icon: new Icon(Icons.group),
+            text: 'Convidados',
+          )
+        ],
+        labelColor: Colors.red,
+        unselectedLabelColor: Colors.black,
+        labelPadding: EdgeInsets.all(0.0),
+        indicatorSize: TabBarIndicatorSize.label,
+        indicatorColor: Colors.red,
+        controller: controller,
+      ),
+      /* bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -207,8 +244,14 @@ class _PrincipalState extends State<Principal> {
         currentIndex: selectedIndex,
         unselectedItemColor: Colors.black,
         selectedItemColor: Colors.red,
-        onTap: _onItemTapped,
-      ),
+        onTap: (currentIndex) {
+          listaProdutos = normal;
+          setState(() {
+            selectedIndex = currentIndex;
+          });
+          controller.animateTo(selectedIndex);
+        },
+      ),*/
     );
   }
 

@@ -74,6 +74,7 @@ class _PresentesState extends State<Presentes> {
           onPressed: () {
             listaProdutos = normal;
             selectedIndex = 2;
+
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Principal()));
           },
