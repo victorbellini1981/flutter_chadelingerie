@@ -20,6 +20,7 @@ class _InicialState extends State<Inicial> {
 
   @override
   Widget build(BuildContext context) {
+    // lista de recados mandados para a noiva pelo site
     final List<String> listaRecados = <String>[
       'João Victor Bellini',
       'Rafaela Pereira',

@@ -6,17 +6,22 @@ import 'package:cha_de_lingerie/src/public/ConfigApp.dart';
 ConfigApp configApp =
     ConfigApp("cha_de_lingerie", "_cha_de_lingerieServer", true);
 UsuarioLembrar usuarioLembrar;
+// variáveis que trazem os dados da noiva
 var fotoPerfilN;
 var nomeNoiva;
 var fotoNoiva;
 var emailNoiva;
 var fotoDaNoiva;
+// listas de produtos vindos do servidor
 List listaProdutos;
 List normal;
-int selectedIndex = 0;
-List presentesSel = List();
-List filtroLingerie = List();
+int selectedIndex =
+    0; // variavel que indica o index da tela que vai abrir no corpo da tela principal
+List presentesSel = List(); // lista das lingerie selecionadas pela noiva
+List filtroLingerie =
+    List(); // lista que retorna resultados dos filtros escolhidos
 List listaConvidados;
 List listaRecados;
+// variáveis de verificação se o filtro lingerie e o filtrocamisolas foram utilizados
 bool lin = false;
 bool cam = false;

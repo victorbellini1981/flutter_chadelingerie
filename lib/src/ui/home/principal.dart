@@ -32,6 +32,7 @@ class _PrincipalState extends State<Principal>
   @override
   void initState() {
     super.initState();
+    // controlador das telas da navbar
     controller = TabController(length: _widgetOptions.length, vsync: this);
     controller.animateTo(selectedIndex);
     getUrlServidor();
@@ -47,6 +48,7 @@ class _PrincipalState extends State<Principal>
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        // btao menu do lado esquerdo da tela, editar perfil e sair
         leading: PopupMenuButton(
           color: Colors.red,
           icon: Icon(
@@ -109,6 +111,7 @@ class _PrincipalState extends State<Principal>
         backgroundColor: Colors.red,
         title: Text("Chá de lingerie",
             style: TextStyle(color: Colors.white, fontSize: 30)),
+        // botao filtro do lado direito da tela com filtro de tamanho, lingeries e camisolas
         actions: <Widget>[
           PopupMenuButton(
             color: Colors.red,
@@ -118,6 +121,7 @@ class _PrincipalState extends State<Principal>
                 child: GestureDetector(
                     onTap: () {
                       showDialog(
+                        // chama um pop-up para noiva selecionar o tamanho da lingerie
                         context: context,
                         builder: (BuildContext context) =>
                             _buildAboutDialog(context),
@@ -131,7 +135,10 @@ class _PrincipalState extends State<Principal>
               PopupMenuItem(
                 child: GestureDetector(
                     onTap: () {
-                      lin = true;
+                      // carrega somente lingeries na lista
+                      lin =
+                          true; // variável ativada pra qdo entrar na lista de camisolas
+                      //forçar a lista de produtos voltar pra lista com todos os produtos
                       if (cam == true) {
                         listaProdutos = normal;
                       }
@@ -159,8 +166,10 @@ class _PrincipalState extends State<Principal>
               PopupMenuItem(
                 child: GestureDetector(
                     onTap: () {
-                      cam = true;
-
+                      // função pra carregar somente camisolas na lista
+                      cam =
+                          true; // variável ativada pra qdo entrar na lista de lingeries
+                      //forçar a lista de produtos voltar pra lista com todos os produtos
                       if (lin == true) {
                         listaProdutos = normal;
                       }
@@ -190,6 +199,7 @@ class _PrincipalState extends State<Principal>
         ],
       ),
       body: TabBarView(
+        // controla a visualização das telas conforme muda na navbar
         controller: controller,
         children: _widgetOptions,
       ),
@@ -197,6 +207,7 @@ class _PrincipalState extends State<Principal>
           child: _widgetOptions.elementAt(selectedIndex),
         ),*/
       bottomNavigationBar: new TabBar(
+        // icones das telas na navbar
         tabs: [
           Tab(
             icon: new Icon(Icons.home),
@@ -255,6 +266,7 @@ class _PrincipalState extends State<Principal>
     );
   }
 
+//retorna o pop-up com os tamanhos
   var tam;
   var selecttam = 'T';
 

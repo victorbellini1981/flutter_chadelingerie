@@ -18,6 +18,7 @@ class _CadastroState extends State<Cadastro> {
     getUrlServidor();
   }
 
+// tela de Cadastro simples, com campos e-mail, senha e função pra cadastro de usuario
   TextEditingController txtsenha = new TextEditingController();
   TextEditingController txtlogin = new TextEditingController();
 

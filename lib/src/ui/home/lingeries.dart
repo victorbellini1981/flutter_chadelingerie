@@ -36,6 +36,7 @@ class _LingeriesState extends State<Lingeries> {
   var preco_tabelaProd = 0.0;
   AlertDialog prod = AlertDialog();
 
+  // função que detalha a lingerie escolhida
   detalhesP() async {
     Map retorno = await promessaB(_scaffoldKey, "GetProduto", referenciaP);
     if (retorno["situacao"] == "sucesso") {
@@ -132,6 +133,8 @@ class _LingeriesState extends State<Lingeries> {
 
   @override
   Widget build(BuildContext context) {
+    // preenche uma lista de opção com false, que será usada para qdo a noiva selecionar uma lingerie
+    // essa opção fique true e insira o item na lista de presentes da noiva
     if (listaProdutos.length != 0) {
       for (int i = 0; i < listaProdutos.length; i++) {
         opcao.add(false);
@@ -139,6 +142,7 @@ class _LingeriesState extends State<Lingeries> {
     } else {
       opcao = [];
     }
+    //função que é chamada para mudar a opção pra true
     void itemChange(bool val, int index) {
       setState(() {
         opcao[index] = val;
@@ -252,6 +256,8 @@ class _LingeriesState extends State<Lingeries> {
             ),
           ),
           onPressed: () {
+            // insere os produtos escolhidos pela noiva da lista de produtos disponíveis
+            //  para a lista de presentes da noiva
             if (presentesSel.length == 0) {
               for (int i = 0; i < listaProdutos.length; i++) {
                 if (opcao[i] == true) {
@@ -264,6 +270,9 @@ class _LingeriesState extends State<Lingeries> {
                 }
               }
             } else {
+              // se játiver sido escolhida a lista de presentes, ele percorre essa lista,
+              // e ve se algum produto foi escolhido novamente, caso tenha sido ele não é
+              // adicionado novamente
               for (int i = 0; i < listaProdutos.length; i++) {
                 comp = false;
                 if (opcao[i] == true) {

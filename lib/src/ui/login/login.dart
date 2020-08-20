@@ -39,6 +39,7 @@ class _LoginState extends State<Login> {
     getUrlServidor();
   }
 
+// função que retorna lista de produtos disponíveis para noiva escolher as lingeries
   void lista2() async {
     Map obj = Map();
     Map retorno = await promessa(_scaffoldKey, "GetProdutos", obj);
@@ -50,6 +51,7 @@ class _LoginState extends State<Login> {
     }
   }
 
+// função para conectar no aplicativo com os dados de usuário do google
   Future<String> signInWithGoogle() async {
     lista2();
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -91,7 +93,7 @@ class _LoginState extends State<Login> {
   var profileData;
 
   final FacebookLogin facebookLogin = new FacebookLogin();
-
+// função que verifica se o acesso aos dados do face deu certo
   void onLoginStatusChanged(bool isLoggedIn, {profileData}) {
     setState(() {
       this.isLoggedIn = isLoggedIn;
@@ -99,6 +101,7 @@ class _LoginState extends State<Login> {
     });
   }
 
+// função para conectar no aplicativo com os dados de usuário do google
   void initiateFacebookLogin() async {
     lista2();
     var facebookLoginResult =
@@ -203,8 +206,11 @@ class _LoginState extends State<Login> {
         )
       ],
     );
-
+// função que verifica login e senha de usuario
     void entrar() async {
+      selectedIndex =
+          0; // variável que indica a tela que vai abrir no body da página principal
+      // no caso, a Inicial()
       fotoNoiva = null;
       nomeNoiva = ' Marjorie Rafaela';
       emailNoiva = 'majurap@gmail.com';
@@ -294,16 +300,34 @@ class _LoginState extends State<Login> {
         child: Text("Esqueci minha senha",
             style: TextStyle(color: Colors.red, fontSize: 16)),
         onTap: () {
+          /*if (_loginController.text.isEmpty) {
+            _scaffoldKey.currentState
+                .showSnackBar(new SnackBar(content: new Text('Favor digitar seu e-mail')));
+          } else {
+            Map obj = Map();
+            obj["email"] = login.controller.text.trim();
+            
+            Map retorno = await promessa(_scaffoldKey, "GetLogin", obj);
+            //print(json.encode(retorno["arrayObj"]));
+            if (retorno["situacao"] == "ok") {
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LoginRecuperaSenha()));
+            }
+            else {
+              _scaffoldKey.currentState
+                .showSnackBar(new SnackBar(content: new Text('E-mail não encontrado')));  
+            }  
+          }*/
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => LoginRecuperaSenha()));
         });
+
     final lnkCadastrar = GestureDetector(
         child: Text("Não tem cadastro? Cadastre-se",
             style: TextStyle(color: Colors.red, fontSize: 15)),
         onTap: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Cadastro()));
-          // do what you need to do when "Click here" gets clicked
         });
 
     return WillPopScope(

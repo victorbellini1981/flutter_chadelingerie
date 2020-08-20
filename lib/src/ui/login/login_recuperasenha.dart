@@ -1,4 +1,5 @@
 import 'package:cha_de_lingerie/core/utils.dart';
+import 'package:cha_de_lingerie/src/public/globals.dart';
 import 'package:cha_de_lingerie/src/public/style.dart';
 import 'package:cha_de_lingerie/src/ui/login/login.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class _LoginRecuperaSenhaState extends State<LoginRecuperaSenha> {
   @override
   void initState() {
     super.initState();
+    _emailController.text = emailNoiva;
     getUrlServidor();
   }
 

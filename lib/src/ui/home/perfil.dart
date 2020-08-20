@@ -44,7 +44,7 @@ class _PerfilState extends State<Perfil> {
   TextEditingController txtcomplemento = new TextEditingController();
   TextEditingController txtestado = new TextEditingController();
   TextEditingController txtmensagem = new TextEditingController();
-
+//função que busca dadosdo endereço através de um CEP fornecido pelo usuário
   consultaCep() async {
     String cep = txtcep.text;
 
@@ -72,6 +72,7 @@ class _PerfilState extends State<Perfil> {
     });
   }
 
+//função que abre a câmera do celular para tirar uma foto para o perfil da noiva
   final picker = ImagePicker();
   final picher = ImagePicker();
   var _image;
@@ -84,6 +85,7 @@ class _PerfilState extends State<Perfil> {
     });
   }
 
+//função que abre a câmera do celular para tirar uma foto para o perfil da noiva
   Future abreGaleria() async {
     final gallery = await picher.getImage(source: ImageSource.gallery);
 
@@ -92,6 +94,7 @@ class _PerfilState extends State<Perfil> {
     });
   }
 
+// que verifica se deu certo a conexão com a camera e galeria do celular
   void _handleVideo(PickedFile file) {}
 
   void _handleImage(PickedFile file) {}
@@ -116,6 +119,7 @@ class _PerfilState extends State<Perfil> {
     }
   }
 
+// função que adiciona imagens no álbum (no máximo 30 fotos)
   List imagens;
 
   Future adicionaFotos() async {
@@ -127,8 +131,10 @@ class _PerfilState extends State<Perfil> {
     });
   }
 
+// variável do tipo carrossel slider para mostrar fotos selecionadas na galeria do cel
   CarouselSlider instance;
-
+// verifica se usuário já cadastrou sua foto, caso sim aparce a foto cadastrada senão
+// aparece Texto 'Nenhuma imagem selecionada'
   _fotoDoPerfil(profileData) {
     if (fotoNoiva == null) {
       return Text('Nenhuma imagem selecionada');
@@ -150,6 +156,7 @@ class _PerfilState extends State<Perfil> {
 
   @override
   Widget build(BuildContext context) {
+    // mascaras dos campos cpf,tel, data, hr e cep
     var cpfFormatter = new MaskTextInputFormatter(
         mask: '###.###.###-##', filter: {"#": RegExp(r'[0-9]')});
     var telFormatter = new MaskTextInputFormatter(
@@ -582,6 +589,9 @@ class _PerfilState extends State<Perfil> {
             ),
           ),
           onPressed: () {
+            selectedIndex = 0;
+            // verificações de campos preenchidos, caso todos estejam os dados são salvos, se não
+            // dá msgde erro
             /*if (_image == null && fotoNoiva == null) {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
                 content: Text('Tirar ou selecionar a foto do perfil!'),

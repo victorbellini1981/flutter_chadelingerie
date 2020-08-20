@@ -33,6 +33,7 @@ class _ConvidadosState extends State<Convidados> {
 
   @override
   Widget build(BuildContext context) {
+    // página inteira para listar convidados com nome e foto
     final List<String> listaConvidados = <String>[
       'João Victor Bellini',
       'Rafaela Pereira',
