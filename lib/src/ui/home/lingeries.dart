@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cha_de_lingerie/core/utils.dart';
 import 'package:cha_de_lingerie/src/models/Produtos.dart';
 import 'package:cha_de_lingerie/src/public/globals.dart';
@@ -37,6 +38,101 @@ class _LingeriesState extends State<Lingeries> {
   AlertDialog prod = AlertDialog();
 
   // função que detalha a lingerie escolhida
+  /*detalhesP() async {
+    Map retorno = await promessaB(_scaffoldKey, "GetProduto", referenciaP);
+    if (retorno["situacao"] == "sucesso") {
+      linkP = retorno['obj']['link'];
+      linkP = linkP.replaceAll("{", "");
+      linkP = linkP.replaceAll("}", "");
+      linkProd = linkP.split(',');
+      descricaoProd = retorno['obj']['descricao'];
+      tamanhosP = retorno['obj']['tamanhos'];
+      tamanhosP = tamanhosP.replaceAll("{", "");
+      tamanhosP = tamanhosP.replaceAll("}", "");
+      tam = tamanhosP.split(',');
+      tamanhosProd.add(tam[0]);
+      for (int i = 0; i < tam.length; i++) {
+        comp = false;
+        for (int j = 0; j < tamanhosProd.length; i++) {
+          if (tam[i] == tamanhosProd[j]) {
+            comp = true;
+            break;
+          }
+        }
+        if (comp == false) {
+          tamanhosProd.add(tam[i]);
+        }
+      }
+      preco_tabelaProd = retorno['obj']['preco_tabela'];
+      prod = AlertDialog(
+          contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+          content: Wrap(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(left: 4),
+                child: Column(
+                  children: <Widget>[
+                    linkProd[0] == null || linkProd[0] == 'null'
+                        ? InkWell(
+                            child: Image.asset('assets/images/semfoto.jpeg'),
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        : CarouselSlider(
+                            options: CarouselOptions(),
+                            items: linkProd
+                                .map((item) => Container(
+                                      child: Image.network(
+                                          'https://sistemaagely.com.br:8345/' +
+                                              item),
+                                    ))
+                                .toList(),
+                          ),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Text(
+                      descricaoProd,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Tamanhos: ',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: tamanhosProd.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text('${tamanhosProd[index]}')
+                                  ],
+                                ),
+                              );
+                            }),
+                      ],
+                    ),
+                    Text(
+                      'Valor: ' + preco_tabelaProd.toString(),
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ));
+      Navigator.of(context).pop();
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => prod,
+      );
+    }
+  }*/
+
   detalhesP() async {
     Map retorno = await promessaB(_scaffoldKey, "GetProduto", referenciaP);
     if (retorno["situacao"] == "sucesso") {
@@ -71,21 +167,22 @@ class _LingeriesState extends State<Lingeries> {
                 padding: EdgeInsets.only(left: 4),
                 child: Column(
                   children: <Widget>[
-                    listaProdutos[indexP].link == null ||
-                            listaProdutos[indexP].link == 'null'
+                    linkProd[0] == null || linkProd[0] == 'null'
                         ? InkWell(
                             child: Image.asset('assets/images/semfoto.jpeg'),
                             onTap: () {
                               Navigator.of(context).pop();
                             },
                           )
-                        : InkWell(
-                            child: Image.network(
-                                'https://sistemaagely.com.br:8345/' +
-                                    linkProd[0]),
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
+                        : CarouselSlider(
+                            options: CarouselOptions(),
+                            items: linkProd
+                                .map((item) => Container(
+                                      child: Image.network(
+                                          'https://sistemaagely.com.br:8345/' +
+                                              item),
+                                    ))
+                                .toList(),
                           ),
                     SizedBox(
                       width: 2,
@@ -143,11 +240,11 @@ class _LingeriesState extends State<Lingeries> {
       opcao = [];
     }
     //função que é chamada para mudar a opção pra true
-    void itemChange(bool val, int index) {
+    /*void itemChange(bool val, int index) {
       setState(() {
         opcao[index] = val;
       });
-    }
+    }*/
 
     final btnSair = SizedBox(
         width: 200,
@@ -172,7 +269,7 @@ class _LingeriesState extends State<Lingeries> {
           ),
         ));
 
-    final listaLingeries = listaProdutos.length == 0
+    /*final listaLingeries = listaProdutos.length == 0
         ? Center(
             child: CircularProgressIndicator(),
           )
@@ -240,7 +337,33 @@ class _LingeriesState extends State<Lingeries> {
                     ),
                   );
                 })),
-          );
+          );*/
+    final listaLingeries = Container(
+      width: 200,
+      height: 400,
+      child: Container(
+        padding: EdgeInsets.only(left: 4),
+        child: Column(
+          children: <Widget>[
+            InkWell(
+              child: Image.network(
+                'https://scontent.fvag3-1.fna.fbcdn.net/v/t1.0-9/20727994_1401203359974779_7391463482417964687_n.jpg?_nc_cat=107&_nc_sid=85a577&_nc_eui2=AeGMPLkEQHbtyR46sckdkToqJ-DOa70fbWMn4M5rvR9tY7-bGVx2M2LFhbDFb6D4Q-AhrOD4-N1zhATvki0EeVNa&_nc_ohc=AT_srjnKhX4AX96c_RQ&_nc_ht=scontent.fvag3-1.fna&oh=9440de3679fab931944872e2036d03c0&oe=5F59DC9B',
+              ),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => _buildAboutDialog(context),
+                );
+              },
+            ),
+            Text(
+              'Lingerie - 12003',
+              style: TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+      ),
+    );
 
     final btnSalvar = SizedBox(
         width: 200,
@@ -352,9 +475,64 @@ class _LingeriesState extends State<Lingeries> {
   }
 
   Widget _buildAboutDialog(BuildContext context) {
-    detalhesP();
+    tamanhos() {
+      for (var i = 0; i < tamanhosProd.length; i++) {
+        return Column(
+          children: [Text('${tamanhosProd[i]}')],
+        );
+      }
+    }
+
+    /* detalhesP();
     return Center(
       child: CircularProgressIndicator(),
-    );
+    );*/
+    linkProd = [
+      'https://scontent.fvag3-1.fna.fbcdn.net/v/t1.0-9/20727994_1401203359974779_7391463482417964687_n.jpg?_nc_cat=107&_nc_sid=85a577&_nc_eui2=AeGMPLkEQHbtyR46sckdkToqJ-DOa70fbWMn4M5rvR9tY7-bGVx2M2LFhbDFb6D4Q-AhrOD4-N1zhATvki0EeVNa&_nc_ohc=AT_srjnKhX4AX96c_RQ&_nc_ht=scontent.fvag3-1.fna&oh=9440de3679fab931944872e2036d03c0&oe=5F59DC9B',
+      'https://scontent.fvag3-1.fna.fbcdn.net/v/t1.0-9/20727994_1401203359974779_7391463482417964687_n.jpg?_nc_cat=107&_nc_sid=85a577&_nc_eui2=AeGMPLkEQHbtyR46sckdkToqJ-DOa70fbWMn4M5rvR9tY7-bGVx2M2LFhbDFb6D4Q-AhrOD4-N1zhATvki0EeVNa&_nc_ohc=AT_srjnKhX4AX96c_RQ&_nc_ht=scontent.fvag3-1.fna&oh=9440de3679fab931944872e2036d03c0&oe=5F59DC9B'
+    ];
+    tamanhosProd = ['P', 'M', 'G'];
+    return AlertDialog(
+        contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+        content: InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Wrap(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(left: 4),
+                  child: Column(
+                    children: <Widget>[
+                      CarouselSlider(
+                        options: CarouselOptions(),
+                        items: linkProd
+                            .map((item) => Container(
+                                  child: Image.network(item),
+                                ))
+                            .toList(),
+                      ),
+                      Text(
+                        'Olá mundo',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      Wrap(
+                        children: [
+                          Row(
+                            children: [
+                              tamanhos(),
+                            ],
+                          )
+                        ],
+                      ),
+                      Text(
+                        'Valor: 512,00',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            )));
   }
 }
