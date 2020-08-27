@@ -27,7 +27,7 @@ Future<Map<String, dynamic>> promessa(
   //String url = "${configApp.urlServidor}/${configApp.servlet}?tela=${servico}";
   String url =
       // ignore: unnecessary_brace_in_string_interps
-      'https://sistemaagely.com.br:8345/ChaDeLingerie07072020/chadelingerie?metodo=${servico}';
+      'https://sistemaagely.com.br:8345/ChaDeLingerie27082020/chadelingerie?metodo=${servico}';
   final response = await http.get(url);
 
   if (response.statusCode == 200) {
@@ -58,7 +58,7 @@ Future<Map<String, dynamic>> promessaB(
   //String url = "${configApp.urlServidor}/${configApp.servlet}?tela=${servico}";
   String url =
       // ignore: unnecessary_brace_in_string_interps
-      'https://sistemaagely.com.br:8345/ChaDeLingerie07072020/chadelingerie?metodo=${servico}&referencia=${obj}';
+      'https://sistemaagely.com.br:8345/ChaDeLingerie27082020/chadelingerie?metodo=${servico}&referencia=${obj}';
   final response = await http.get(url);
 
   if (response.statusCode == 200) {

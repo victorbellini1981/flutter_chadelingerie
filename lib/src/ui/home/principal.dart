@@ -268,7 +268,6 @@ class _PrincipalState extends State<Principal>
 
 //retorna o pop-up com os tamanhos
   var tam;
-  var selecttam = 'T';
 
   Widget _buildAboutDialog(BuildContext context) {
     void tamanhos() {

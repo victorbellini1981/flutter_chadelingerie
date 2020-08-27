@@ -25,3 +25,4 @@ List listaRecados;
 // variáveis de verificação se o filtro lingerie e o filtrocamisolas foram utilizados
 bool lin = false;
 bool cam = false;
+var selecttam = 'T';
