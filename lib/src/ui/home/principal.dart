@@ -84,6 +84,7 @@ class _PrincipalState extends State<Principal>
               child: GestureDetector(
                 onTap: () {
                   selectedIndex = 0;
+                  selecttam = 'T';
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Login()));
                 },

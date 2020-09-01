@@ -1,4 +1,17 @@
-/*        Pessoa noiva = Pessoa();
+/*       
+
+
+
+Widget rowTamanhos(BuildContext context) {
+      for (int i = 0; i < listaProdutos.length; i++){
+        
+      }
+    }
+
+
+
+
+Pessoa noiva = Pessoa();
             noiva.fotoPerfil = fotoPerfilN;
             noiva.fotoAlbum = fotoAlbumN;
             noiva.nome = nomeN;
