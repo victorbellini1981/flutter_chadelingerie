@@ -1,12 +1,74 @@
-/*       
+/* 
 
 
 
-Widget rowTamanhos(BuildContext context) {
-      for (int i = 0; i < listaProdutos.length; i++){
-        
-      }
-    }
+Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Tamanhos: ',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ],
+                        ),
+                        selecttam == 'T'
+                            ? Wrap(
+                                children: [
+                                  Container(
+                                      height: 20,
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis
+                                            .horizontal, // Axis.horizontal for horizontal list view.
+                                        itemCount:
+                                            tamanhosProduto[index].length,
+                                        itemBuilder: (ctx, index1) {
+                                          return Align(
+                                              child: Row(
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  selecttam =
+                                                      tamanhosProduto[index]
+                                                          [index1];
+                                                  print(selecttam);
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all()),
+                                                  child: Text(
+                                                    '${tamanhosProduto[index][index1]}',
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 7,
+                                              )
+                                            ],
+                                          ));
+                                        },
+                                      ))
+                                ],
+                              )
+                            : Text(selecttam,
+                                style: TextStyle(color: Colors.red)),
+                        CheckboxListTile(
+                            activeColor: Colors.red,
+                            value: opcao[index],
+                            title: Text(
+                              'Valor: ${listaProdutos[index].preco_tabela.toStringAsFixed(2)}',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            onChanged: (bool val) {
+                              selectprod = true;
+                              itemChange(val, index);
+                            }),
+
+
 
 
 

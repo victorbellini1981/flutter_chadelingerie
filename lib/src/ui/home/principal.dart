@@ -143,12 +143,16 @@ class _PrincipalState extends State<Principal>
                       if (cam == true) {
                         listaProdutos = normal;
                       }
+                      cam = false;
                       filtroLingerie = [];
                       for (int i = 0; i < listaProdutos.length; i++) {
                         if (listaProdutos[i].descricao.contains('Lingerie')) {
                           Produtos prod = Produtos();
                           prod.link = '${listaProdutos[i].link}';
+                          prod.referencia = '${listaProdutos[i].referencia}';
                           prod.descricao = '${listaProdutos[i].descricao}';
+                          prod.tamanhos = '${listaProdutos[i].tamanhos}';
+                          prod.marca = '${listaProdutos[i].marca}';
                           prod.preco_tabela =
                               double.parse('${listaProdutos[i].preco_tabela}');
                           filtroLingerie.add(prod);
@@ -174,12 +178,16 @@ class _PrincipalState extends State<Principal>
                       if (lin == true) {
                         listaProdutos = normal;
                       }
+                      lin = false;
                       filtroLingerie = [];
                       for (int i = 0; i < listaProdutos.length; i++) {
                         if (listaProdutos[i].descricao.contains('Camisola')) {
                           Produtos prod = Produtos();
                           prod.link = '${listaProdutos[i].link}';
+                          prod.referencia = '${listaProdutos[i].referencia}';
                           prod.descricao = '${listaProdutos[i].descricao}';
+                          prod.tamanhos = '${listaProdutos[i].tamanhos}';
+                          prod.marca = '${listaProdutos[i].marca}';
                           prod.preco_tabela =
                               double.parse('${listaProdutos[i].preco_tabela}');
                           filtroLingerie.add(prod);
@@ -269,23 +277,40 @@ class _PrincipalState extends State<Principal>
 
 //retorna o pop-up com os tamanhos
   var tam;
+  var tamanhosP = '';
+  List tamsLingerie = List();
+  List tamanhosProd = List();
 
   Widget _buildAboutDialog(BuildContext context) {
     void tamanhos() {
-      /*
+      if (cam == false && lin == false) {
+        listaProdutos = normal;
+      }
       filtroLingerie = [];
       for (int i = 0; i < listaProdutos.length; i++) {
-        for (int j = 0; j < listaProdutos[i].tamanhos.length)
-        if (listaProdutos[i].tamanhos[j] == selecttam {
-          Produtos prod = Produtos();
-          prod.link = '${listaProdutos[i].link}';
-          prod.descricao = '${listaProdutos[i].descricao}';
-          prod.tamanho = selecttam;
-          prod.preco_tabela = double.parse('${listaProdutos[i].preco_tabela}');
-          filtroLingerie.add(prod);
+        tamsLingerie = [];
+        tamanhosProd = [];
+        tamanhosP = listaProdutos[i].tamanhos;
+        tamanhosP = tamanhosP.replaceAll("{", "");
+        tamanhosP = tamanhosP.replaceAll("}", "");
+        tamsLingerie = tamanhosP.split(',');
+        for (int j = 0; j < tamsLingerie.length; j++) {
+          if (tamsLingerie[j] == selecttam) {
+            Produtos prod = Produtos();
+            prod.link = '${listaProdutos[i].link}';
+            prod.referencia = '${listaProdutos[i].referencia}';
+            prod.descricao = '${listaProdutos[i].descricao}';
+            prod.tamanhos = '${listaProdutos[i].tamanhos}';
+            prod.marca = '${listaProdutos[i].marca}';
+            prod.preco_tabela =
+                double.parse('${listaProdutos[i].preco_tabela}');
+            filtroLingerie.add(prod);
+            break;
+          }
         }
       }
-      listaProdutos = filtroLingerie;*/
+
+      listaProdutos = filtroLingerie;
       selectedIndex = 2;
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Principal()));

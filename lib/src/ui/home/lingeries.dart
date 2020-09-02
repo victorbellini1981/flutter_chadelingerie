@@ -32,6 +32,8 @@ class _LingeriesState extends State<Lingeries> {
   List linkProd = List();
   List links = List();
   var descricaoProd = '';
+  var referenciaProd = '';
+  var marcaProd = '';
   var tamanhosP = '';
   List tam = List();
   List tamanhosProd = List();
@@ -81,6 +83,8 @@ class _LingeriesState extends State<Lingeries> {
       linkP = linkP.replaceAll("}", "");
       linkProd = linkP.split(',');
       descricaoProd = retorno['obj']['descricao'];
+      referenciaProd = retorno['obj']['referencia'];
+      marcaProd = retorno['obj']['marca'];
       tam = [];
       tamanhosProd = [];
       tamanhosP = retorno['obj']['tamanhos'];
@@ -100,6 +104,7 @@ class _LingeriesState extends State<Lingeries> {
           tamanhosProd.add(tam[i]);
         }
       }
+
       preco_tabelaProd = retorno['obj']['preco_tabela'];
       prod = AlertDialog(
           contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
@@ -121,7 +126,7 @@ class _LingeriesState extends State<Lingeries> {
                               },
                             )
                           : CarouselSlider(
-                              options: CarouselOptions(),
+                              options: CarouselOptions(aspectRatio: 44 / 44),
                               items: linkProd
                                   .map((item) => Container(
                                         child: Image.network(
@@ -132,6 +137,14 @@ class _LingeriesState extends State<Lingeries> {
                             ),
                       Text(
                         'Descrição: ' + descricaoProd,
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      Text(
+                        'Ref: ' + referenciaProd,
+                        style: TextStyle(color: Colors.red),
+                      ),
+                      Text(
+                        'Marca: ' + marcaProd,
                         style: TextStyle(color: Colors.red),
                       ),
                       Row(
@@ -196,6 +209,7 @@ class _LingeriesState extends State<Lingeries> {
   Widget build(BuildContext context) {
     // preenche uma lista de opção com false, que será usada para qdo a noiva selecionar uma lingerie
     // essa opção fique true e insira o item na lista de presentes da noiva
+
     if (listaProdutos.length != 0) {
       for (int i = 0; i < listaProdutos.length; i++) {
         opcao.add(false);
@@ -210,8 +224,8 @@ class _LingeriesState extends State<Lingeries> {
       });
     }
 
-    final btnSair = SizedBox(
-        width: 200,
+    final btnRetornar = SizedBox(
+        width: 150,
         child: RaisedButton(
           color: Colors.red,
           child: Center(
@@ -225,6 +239,7 @@ class _LingeriesState extends State<Lingeries> {
           ),
           onPressed: () {
             selectedIndex = 0;
+            listaProdutos = normal;
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Principal()));
           },
@@ -235,14 +250,14 @@ class _LingeriesState extends State<Lingeries> {
 
     final listaLingeries = listaProdutos.length == 0
         ? Center(
-            child: CircularProgressIndicator(),
+            child: Text('Nenhum ítem disponível'),
           )
         : Container(
             width: 300,
             height: 300,
             child: GridView.count(
                 crossAxisCount: 2,
-                childAspectRatio: (300 / 600),
+                childAspectRatio: (250 / 500),
                 children: List.generate(listaProdutos.length, (index) {
                   return Container(
                     padding: EdgeInsets.only(left: 4),
@@ -279,75 +294,45 @@ class _LingeriesState extends State<Lingeries> {
                                   );
                                 },
                               ),
+                        Text('${listaProdutos[index].descricao}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                            )),
                         Text(
-                          '${listaProdutos[index].descricao}',
-                          style: TextStyle(color: Colors.red),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Tamanhos: ',
-                              style: TextStyle(color: Colors.red),
+                            'Valor: '
+                            '${listaProdutos[index].preco_tabela.toStringAsFixed(2)}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                            )),
+                        SizedBox(
+                            child: RaisedButton(
+                          color: Colors.red,
+                          child: Center(
+                            child: Text(
+                              "+ Detalhes",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
                             ),
-                          ],
-                        ),
-                        selecttam == 'T'
-                            ? Wrap(
-                                children: [
-                                  Container(
-                                      height: 20,
-                                      child: ListView.builder(
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis
-                                            .horizontal, // Axis.horizontal for horizontal list view.
-                                        itemCount:
-                                            tamanhosProduto[index].length,
-                                        itemBuilder: (ctx, index1) {
-                                          return Align(
-                                              child: Row(
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  selecttam =
-                                                      tamanhosProduto[index]
-                                                          [index1];
-                                                  print(selecttam);
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all()),
-                                                  child: Text(
-                                                    '${tamanhosProduto[index][index1]}',
-                                                    style: TextStyle(
-                                                      color: Colors.red,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 7,
-                                              )
-                                            ],
-                                          ));
-                                        },
-                                      ))
-                                ],
-                              )
-                            : Text(selecttam,
-                                style: TextStyle(color: Colors.red)),
-                        CheckboxListTile(
-                            activeColor: Colors.red,
-                            value: opcao[index],
-                            title: Text(
-                              'Valor: ${listaProdutos[index].preco_tabela.toStringAsFixed(2)}',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                            onChanged: (bool val) {
-                              selectprod = true;
-                              itemChange(val, index);
-                            }),
+                          ),
+                          onPressed: () {
+                            indexP = index;
+                            referenciaP = '${listaProdutos[index].referencia}';
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  _buildAboutDialog(context),
+                            );
+                          },
+                          shape: new RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0),
+                          ),
+                        ))
                       ],
                     ),
                   );
@@ -355,7 +340,7 @@ class _LingeriesState extends State<Lingeries> {
           );
 
     final btnSalvar = SizedBox(
-        width: 200,
+        width: 150,
         child: RaisedButton(
           color: Colors.red,
           child: Center(
@@ -453,11 +438,9 @@ class _LingeriesState extends State<Lingeries> {
                     SizedBox(
                       height: 10,
                     ),
-                    btnSalvar,
-                    SizedBox(
-                      height: 5,
-                    ),
-                    btnSair
+                    Row(
+                      children: [btnSalvar, btnRetornar],
+                    )
                   ],
                 ),
               ),

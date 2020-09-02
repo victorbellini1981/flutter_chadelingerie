@@ -133,7 +133,7 @@ class _PerfilState extends State<Perfil> {
 
 // variável do tipo carrossel slider para mostrar fotos selecionadas na galeria do cel
   CarouselSlider instance;
-// verifica se usuário já cadastrou sua foto, caso sim aparce a foto cadastrada senão
+// verifica se usuário já cadastrou sua foto, caso sim aparece a foto cadastrada senão
 // aparece Texto 'Nenhuma imagem selecionada'
   _fotoDoPerfil(profileData) {
     if (fotoNoiva == null) {
