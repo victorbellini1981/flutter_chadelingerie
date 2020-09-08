@@ -19,6 +19,49 @@ class _PresentesState extends State<Presentes> {
     getUrlServidor();
   }
 
+  bool comp = false;
+  var linkP = '';
+  List linkProd = List();
+  List links = List();
+  var descricaoProd = '';
+  var referenciaProd = '';
+  var marcaProd = '';
+  var tamanhosP = '';
+  List tam = List();
+  List tamanhosProd = List();
+  // ignore: non_constant_identifier_names
+  var preco_tabelaProd = 0.0;
+
+  void tamanhosElinks() {
+    for (var i = 0; i < presentesSel.length; i++) {
+      linkProd = [];
+      linkP = '${presentesSel[i].link}';
+      linkP = linkP.replaceAll("{", "");
+      linkP = linkP.replaceAll("}", "");
+      linkProd = linkP.split(',');
+      links.add(linkProd);
+      tam = [];
+      tamanhosProd = [];
+      tamanhosP = '${presentesSel[i].tamanhos}';
+      tamanhosP = tamanhosP.replaceAll('{', '');
+      tamanhosP = tamanhosP.replaceAll('}', '');
+      tam = tamanhosP.split(',');
+      tamanhosProd.add(tam[0]);
+      for (int h = 0; h < tam.length; h++) {
+        comp = false;
+        for (int j = 0; j < tamanhosProd.length; j++) {
+          if (tam[h] == tamanhosProd[j]) {
+            comp = true;
+            break;
+          }
+        }
+        if (comp == false) {
+          tamanhosProd.add(tam[h]);
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final listaNoiva = presentesSel.length == 0
@@ -36,22 +79,30 @@ class _PresentesState extends State<Presentes> {
                     padding: EdgeInsets.only(left: 4),
                     child: Column(
                       children: <Widget>[
-                        presentesSel[index].link == 'null'
+                        presentesSel[index].link == '{NULL}'
                             ? Image.asset('assets/images/semfoto.jpeg')
                             : Image.network(
                                 'https://sistemaagely.com.br:8345/' +
-                                    '${presentesSel[index].link}'),
-                        SizedBox(
-                          width: 2,
-                        ),
+                                    '${links[index][0]}'),
+                        Text('Descrição: ${presentesSel[index].descricao}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                            )),
+                        Text('Tamanho: ${presentesSel[index].tamanhos}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                            )),
                         Text(
-                          '${presentesSel[index].descricao}',
-                          style: TextStyle(color: Colors.red),
-                        ),
-                        Text(
-                          'Valor: ${presentesSel[index].preco_tabela}',
-                          style: TextStyle(color: Colors.red),
-                        ),
+                            'Valor: ${presentesSel[index].preco_tabela.toStringAsFixed(2)}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 15,
+                            )),
                       ],
                     ),
                   );

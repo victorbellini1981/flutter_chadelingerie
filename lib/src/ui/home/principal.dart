@@ -45,204 +45,209 @@ class _PrincipalState extends State<Principal>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        // btao menu do lado esquerdo da tela, editar perfil e sair
-        leading: PopupMenuButton(
-          color: Colors.red,
-          icon: Icon(
-            Icons.menu,
-            size: 30,
-          ),
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              child: GestureDetector(
-                onTap: () {
-                  selectedIndex = 0;
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Perfil()));
-                },
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      ' Editar Perfil',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            PopupMenuItem(
-              child: GestureDetector(
-                onTap: () {
-                  selectedIndex = 0;
-                  selecttam = 'T';
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Login()));
-                },
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.backspace,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      ' Sair',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        backgroundColor: Colors.red,
-        title: Text("Chá de lingerie",
-            style: TextStyle(color: Colors.white, fontSize: 30)),
-        // botao filtro do lado direito da tela com filtro de tamanho, lingeries e camisolas
-        actions: <Widget>[
-          PopupMenuButton(
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          // btao menu do lado esquerdo da tela, editar perfil e sair
+          leading: PopupMenuButton(
             color: Colors.red,
-            icon: Image.asset('assets/images/filtro.png'),
+            icon: Icon(
+              Icons.menu,
+              size: 30,
+            ),
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        // chama um pop-up para noiva selecionar o tamanho da lingerie
-                        context: context,
-                        builder: (BuildContext context) =>
-                            _buildAboutDialog(context),
-                      );
-                    },
-                    child: Text(
-                      ' Tamanho',
-                      style: TextStyle(color: Colors.white),
-                    )),
+                  onTap: () {
+                    selectedIndex = 0;
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Perfil()));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        ' Editar Perfil',
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
               ),
               PopupMenuItem(
                 child: GestureDetector(
-                    onTap: () {
-                      // carrega somente lingeries na lista
-                      lin =
-                          true; // variável ativada pra qdo entrar na lista de camisolas
-                      //forçar a lista de produtos voltar pra lista com todos os produtos
-                      if (cam == true) {
-                        listaProdutos = normal;
-                      }
-                      cam = false;
-                      filtroLingerie = [];
-                      for (int i = 0; i < listaProdutos.length; i++) {
-                        if (listaProdutos[i].descricao.contains('Lingerie')) {
-                          Produtos prod = Produtos();
-                          prod.link = '${listaProdutos[i].link}';
-                          prod.referencia = '${listaProdutos[i].referencia}';
-                          prod.descricao = '${listaProdutos[i].descricao}';
-                          prod.tamanhos = '${listaProdutos[i].tamanhos}';
-                          prod.marca = '${listaProdutos[i].marca}';
-                          prod.preco_tabela =
-                              double.parse('${listaProdutos[i].preco_tabela}');
-                          filtroLingerie.add(prod);
-                        }
-                      }
-                      listaProdutos = filtroLingerie;
-                      selectedIndex = 2;
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Principal()));
-                    },
-                    child: Text(
-                      ' Lingeries',
-                      style: TextStyle(color: Colors.white),
-                    )),
-              ),
-              PopupMenuItem(
-                child: GestureDetector(
-                    onTap: () {
-                      // função pra carregar somente camisolas na lista
-                      cam =
-                          true; // variável ativada pra qdo entrar na lista de lingeries
-                      //forçar a lista de produtos voltar pra lista com todos os produtos
-                      if (lin == true) {
-                        listaProdutos = normal;
-                      }
-                      lin = false;
-                      filtroLingerie = [];
-                      for (int i = 0; i < listaProdutos.length; i++) {
-                        if (listaProdutos[i].descricao.contains('Camisola')) {
-                          Produtos prod = Produtos();
-                          prod.link = '${listaProdutos[i].link}';
-                          prod.referencia = '${listaProdutos[i].referencia}';
-                          prod.descricao = '${listaProdutos[i].descricao}';
-                          prod.tamanhos = '${listaProdutos[i].tamanhos}';
-                          prod.marca = '${listaProdutos[i].marca}';
-                          prod.preco_tabela =
-                              double.parse('${listaProdutos[i].preco_tabela}');
-                          filtroLingerie.add(prod);
-                        }
-                      }
-                      listaProdutos = filtroLingerie;
-                      selectedIndex = 2;
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Principal()));
-                    },
-                    child: Text(
-                      ' Camisolas',
-                      style: TextStyle(color: Colors.white),
-                    )),
+                  onTap: () {
+                    selectedIndex = 0;
+                    selecttam = 'T';
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Login()));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.backspace,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        ' Sair',
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
-        ],
-      ),
-      body: TabBarView(
-        // controla a visualização das telas conforme muda na navbar
-        controller: controller,
-        children: _widgetOptions,
-      ),
-      /*Center(
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          backgroundColor: Colors.red,
+          title: Text("Chá de lingerie",
+              style: TextStyle(color: Colors.white, fontSize: 30)),
+          // botao filtro do lado direito da tela com filtro de tamanho, lingeries e camisolas
+          actions: <Widget>[
+            PopupMenuButton(
+              color: Colors.red,
+              icon: Image.asset('assets/images/filtro.png'),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          // chama um pop-up para noiva selecionar o tamanho da lingerie
+                          context: context,
+                          builder: (BuildContext context) =>
+                              _buildAboutDialog(context),
+                        );
+                      },
+                      child: Text(
+                        ' Tamanho',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
+                PopupMenuItem(
+                  child: GestureDetector(
+                      onTap: () {
+                        // carrega somente lingeries na lista
+                        lin =
+                            true; // variável ativada pra qdo entrar na lista de camisolas
+                        //forçar a lista de produtos voltar pra lista com todos os produtos
+                        if (cam == true) {
+                          listaProdutos = normal;
+                        }
+                        cam = false;
+                        filtroLingerie = [];
+                        for (int i = 0; i < listaProdutos.length; i++) {
+                          if (listaProdutos[i].descricao.contains('Lingerie')) {
+                            Produtos prod = Produtos();
+                            prod.link = '${listaProdutos[i].link}';
+                            prod.referencia = '${listaProdutos[i].referencia}';
+                            prod.descricao = '${listaProdutos[i].descricao}';
+                            prod.tamanhos = '${listaProdutos[i].tamanhos}';
+                            prod.marca = '${listaProdutos[i].marca}';
+                            prod.preco_tabela = double.parse(
+                                '${listaProdutos[i].preco_tabela}');
+                            filtroLingerie.add(prod);
+                          }
+                        }
+                        listaProdutos = filtroLingerie;
+                        selectedIndex = 2;
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Principal()));
+                      },
+                      child: Text(
+                        ' Lingeries',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
+                PopupMenuItem(
+                  child: GestureDetector(
+                      onTap: () {
+                        // função pra carregar somente camisolas na lista
+                        cam =
+                            true; // variável ativada pra qdo entrar na lista de lingeries
+                        //forçar a lista de produtos voltar pra lista com todos os produtos
+                        if (lin == true) {
+                          listaProdutos = normal;
+                        }
+                        lin = false;
+                        filtroLingerie = [];
+                        for (int i = 0; i < listaProdutos.length; i++) {
+                          if (listaProdutos[i].descricao.contains('Camisola')) {
+                            Produtos prod = Produtos();
+                            prod.link = '${listaProdutos[i].link}';
+                            prod.referencia = '${listaProdutos[i].referencia}';
+                            prod.descricao = '${listaProdutos[i].descricao}';
+                            prod.tamanhos = '${listaProdutos[i].tamanhos}';
+                            prod.marca = '${listaProdutos[i].marca}';
+                            prod.preco_tabela = double.parse(
+                                '${listaProdutos[i].preco_tabela}');
+                            filtroLingerie.add(prod);
+                          }
+                        }
+                        listaProdutos = filtroLingerie;
+                        selectedIndex = 2;
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Principal()));
+                      },
+                      child: Text(
+                        ' Camisolas',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
+              ],
+            ),
+          ],
+        ),
+        body: TabBarView(
+          // controla a visualização das telas conforme muda na navbar
+          controller: controller,
+          children: _widgetOptions,
+        ),
+        /*Center(
           child: _widgetOptions.elementAt(selectedIndex),
         ),*/
-      bottomNavigationBar: new TabBar(
-        // icones das telas na navbar
-        tabs: [
-          Tab(
-            icon: new Icon(Icons.home),
-            text: 'Inicial',
-          ),
-          Tab(
-            icon: new Icon(Icons.list),
-            text: 'Presentes',
-          ),
-          Tab(
-            icon: new Icon(Icons.add),
-            text: 'Lingeries',
-          ),
-          Tab(
-            icon: new Icon(Icons.group),
-            text: 'Convidados',
-          )
-        ],
-        labelColor: Colors.red,
-        unselectedLabelColor: Colors.black,
-        labelPadding: EdgeInsets.all(0.0),
-        indicatorSize: TabBarIndicatorSize.label,
-        indicatorColor: Colors.red,
-        controller: controller,
-      ),
-      /* bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: new TabBar(
+          // icones das telas na navbar
+          tabs: [
+            Tab(
+              icon: new Icon(Icons.home),
+              text: 'Inicial',
+            ),
+            Tab(
+              icon: new Icon(Icons.list),
+              text: 'Presentes',
+            ),
+            Tab(
+              icon: new Icon(Icons.add),
+              text: 'Lingeries',
+            ),
+            Tab(
+              icon: new Icon(Icons.group),
+              text: 'Convidados',
+            )
+          ],
+          labelColor: Colors.red,
+          unselectedLabelColor: Colors.black,
+          labelPadding: EdgeInsets.all(0.0),
+          indicatorSize: TabBarIndicatorSize.label,
+          indicatorColor: Colors.red,
+          controller: controller,
+        ),
+        /* bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -272,6 +277,7 @@ class _PrincipalState extends State<Principal>
           controller.animateTo(selectedIndex);
         },
       ),*/
+      ),
     );
   }
 

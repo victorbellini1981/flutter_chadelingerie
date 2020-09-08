@@ -330,68 +330,65 @@ class _LoginState extends State<Login> {
               context, MaterialPageRoute(builder: (context) => Cadastro()));
         });
 
-    return WillPopScope(
-        onWillPop: () async => false,
+    return SafeArea(
         child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            backgroundColor: Colors.red,
-            title: Text("Chá de lingerie",
-                style: TextStyle(color: Colors.white, fontSize: 30)),
-          ),
-          body: Form(
-            key: _formKey,
-            child: Container(
-              padding: EdgeInsets.only(left: 50, right: 50),
-              decoration: boxFundo,
-              child: SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      minHeight: MediaQuery.of(context).size.height),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
+      key: _scaffoldKey,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Colors.red,
+        title: Text("Chá de lingerie",
+            style: TextStyle(color: Colors.white, fontSize: 30)),
+      ),
+      body: Form(
+        key: _formKey,
+        child: Container(
+          padding: EdgeInsets.only(left: 50, right: 50),
+          decoration: boxFundo,
+          child: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(height: 40),
-                          login,
-                          SizedBox(
-                            height: 10,
-                          ),
-                          senha,
-                          SizedBox(
-                            height: 10,
-                          ),
-                          chkLembrar,
-                          SizedBox(height: 20),
-                          btnEntrar,
-                          SizedBox(height: 20),
-                          lnkCadastrar,
-                          SizedBox(height: 10),
-                          Text("ou",
-                              style:
-                                  TextStyle(color: Colors.red, fontSize: 15)),
-                          SizedBox(height: 10),
-                          btnFacebook,
-                          SizedBox(height: 10),
-                          Text("ou",
-                              style:
-                                  TextStyle(color: Colors.red, fontSize: 15)),
-                          SizedBox(height: 10),
-                          btnGoogle,
-                          SizedBox(height: 20),
-                          lnkEsqueci,
-                        ],
-                      )
+                      SizedBox(height: 40),
+                      login,
+                      SizedBox(
+                        height: 10,
+                      ),
+                      senha,
+                      SizedBox(
+                        height: 10,
+                      ),
+                      chkLembrar,
+                      SizedBox(height: 20),
+                      btnEntrar,
+                      SizedBox(height: 20),
+                      lnkCadastrar,
+                      SizedBox(height: 10),
+                      Text("ou",
+                          style: TextStyle(color: Colors.red, fontSize: 15)),
+                      SizedBox(height: 10),
+                      btnFacebook,
+                      SizedBox(height: 10),
+                      Text("ou",
+                          style: TextStyle(color: Colors.red, fontSize: 15)),
+                      SizedBox(height: 10),
+                      btnGoogle,
+                      SizedBox(height: 20),
+                      lnkEsqueci,
                     ],
-                  ),
-                ),
+                  )
+                ],
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    ));
   }
 }

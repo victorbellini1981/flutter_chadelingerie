@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cha_de_lingerie/core/utils.dart';
 import 'package:cha_de_lingerie/src/models/Produtos.dart';
+import 'package:cha_de_lingerie/src/models/Usuario.dart';
 import 'package:cha_de_lingerie/src/public/globals.dart';
 import 'package:cha_de_lingerie/src/ui/home/principal.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,10 +21,12 @@ class _LingeriesState extends State<Lingeries> {
   void initState() {
     super.initState();
     tamanhosElinks();
+    tamanhosLin();
     getUrlServidor();
   }
 
   List<bool> opcao = new List<bool>();
+  List tamEscolhido = new List();
   bool selectprod = false;
   bool comp = false;
   int indexP = 0;
@@ -41,6 +44,18 @@ class _LingeriesState extends State<Lingeries> {
   var preco_tabelaProd = 0.0;
   AlertDialog prod = AlertDialog();
   List tamanhosProduto = List();
+
+  void tamanhosLin() {
+    if (listaProdutos.length != 0) {
+      for (int i = 0; i < listaProdutos.length; i++) {
+        tamEscolhido.add('T');
+        opcao.add(false);
+      }
+    } else {
+      tamEscolhido = [];
+      opcao = [];
+    }
+  }
 
   void tamanhosElinks() {
     for (var i = 0; i < listaProdutos.length; i++) {
@@ -69,7 +84,6 @@ class _LingeriesState extends State<Lingeries> {
           tamanhosProd.add(tam[h]);
         }
       }
-      tamanhosProduto.add(tamanhosProd);
     }
   }
 
@@ -167,7 +181,8 @@ class _LingeriesState extends State<Lingeries> {
                                     children: [
                                       InkWell(
                                         onTap: () {
-                                          Navigator.of(context).pop();
+                                          tamEscolhido[indexP] =
+                                              tamanhosProd[index];
                                         },
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -191,6 +206,25 @@ class _LingeriesState extends State<Lingeries> {
                         'Valor: ' + preco_tabelaProd.toStringAsFixed(2),
                         style: TextStyle(color: Colors.red),
                       ),
+                      SizedBox(
+                          child: RaisedButton(
+                        color: Colors.red,
+                        child: Center(
+                          child: Text(
+                            "Adicionar à Lista",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        ),
+                        onPressed: () {
+                          opcao[indexP] = true;
+                        },
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                      ))
                     ],
                   ),
                 )
@@ -207,23 +241,6 @@ class _LingeriesState extends State<Lingeries> {
 
   @override
   Widget build(BuildContext context) {
-    // preenche uma lista de opção com false, que será usada para qdo a noiva selecionar uma lingerie
-    // essa opção fique true e insira o item na lista de presentes da noiva
-
-    if (listaProdutos.length != 0) {
-      for (int i = 0; i < listaProdutos.length; i++) {
-        opcao.add(false);
-      }
-    } else {
-      opcao = [];
-    }
-    //função que é chamada para mudar a opção pra true
-    void itemChange(bool val, int index) {
-      setState(() {
-        opcao[index] = val;
-      });
-    }
-
     final btnRetornar = SizedBox(
         width: 150,
         child: RaisedButton(
@@ -359,13 +376,15 @@ class _LingeriesState extends State<Lingeries> {
             );
             // insere os produtos escolhidos pela noiva da lista de produtos disponíveis
             //  para a lista de presentes da noiva
-            /*if (presentesSel.length == 0) {
+            if (presentesSel.length == 0) {
               for (int i = 0; i < listaProdutos.length; i++) {
                 if (opcao[i] == true) {
                   Produtos prod = Produtos();
                   prod.link = '${listaProdutos[i].link}';
+                  prod.referencia = '${listaProdutos[i].referencia}';
                   prod.descricao = '${listaProdutos[i].descricao}';
-                  prod.tamanhos = selecttam;
+                  prod.tamanhos = '${tamEscolhido[i]}';
+                  prod.marca = '${listaProdutos[i].marca}';
                   prod.preco_tabela =
                       double.parse('${listaProdutos[i].preco_tabela}');
                   presentesSel.add(prod);
@@ -396,11 +415,11 @@ class _LingeriesState extends State<Lingeries> {
                 }
               }
             }
-            /*ListaProdutos lista = ListaProdutos();
-            lista.listadepresentes = presentesSel;*/
+            ListaProdutos lista = ListaProdutos();
+            lista.listadepresentes = presentesSel;
             selectedIndex = 1;
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Principal()));*/
+                context, MaterialPageRoute(builder: (context) => Principal()));
           },
           shape: new RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(30.0),
