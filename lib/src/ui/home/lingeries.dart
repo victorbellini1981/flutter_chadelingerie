@@ -123,9 +123,7 @@ class _LingeriesState extends State<Lingeries> {
       prod = AlertDialog(
           contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
           content: InkWell(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
+            onTap: () {},
             child: Wrap(
               children: <Widget>[
                 Container(
@@ -142,11 +140,15 @@ class _LingeriesState extends State<Lingeries> {
                           : CarouselSlider(
                               options: CarouselOptions(aspectRatio: 44 / 44),
                               items: linkProd
-                                  .map((item) => Container(
+                                  .map((item) => InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Container(
                                         child: Image.network(
                                             'https://sistemaagely.com.br:8345/' +
                                                 item),
-                                      ))
+                                      )))
                                   .toList(),
                             ),
                       Text(
@@ -219,7 +221,24 @@ class _LingeriesState extends State<Lingeries> {
                           ),
                         ),
                         onPressed: () {
-                          opcao[indexP] = true;
+                          if (tamEscolhido[indexP] == 'T') {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                    content: Text(
+                                  'selecione o tamanho',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ));
+                              },
+                            );
+                          } else {
+                            opcao[indexP] = true;
+                            Navigator.of(context).pop();
+                          }
                         },
                         shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(30.0),
@@ -370,10 +389,6 @@ class _LingeriesState extends State<Lingeries> {
             ),
           ),
           onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) => _buildAboutDialog(context),
-            );
             // insere os produtos escolhidos pela noiva da lista de produtos disponíveis
             //  para a lista de presentes da noiva
             if (presentesSel.length == 0) {
@@ -407,7 +422,10 @@ class _LingeriesState extends State<Lingeries> {
                   if (comp == false) {
                     Produtos prod = Produtos();
                     prod.link = '${listaProdutos[i].link}';
+                    prod.referencia = '${listaProdutos[i].referencia}';
                     prod.descricao = '${listaProdutos[i].descricao}';
+                    prod.tamanhos = '${tamEscolhido[i]}';
+                    prod.marca = '${listaProdutos[i].marca}';
                     prod.preco_tabela =
                         double.parse('${listaProdutos[i].preco_tabela}');
                     presentesSel.add(prod);
@@ -415,8 +433,8 @@ class _LingeriesState extends State<Lingeries> {
                 }
               }
             }
-            ListaProdutos lista = ListaProdutos();
-            lista.listadepresentes = presentesSel;
+            //ListaProdutos lista = ListaProdutos();
+            //lista.listadepresentes = presentesSel;
             selectedIndex = 1;
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Principal()));

@@ -16,6 +16,7 @@ class _PresentesState extends State<Presentes> {
   @override
   void initState() {
     super.initState();
+    tamanhosElinks();
     getUrlServidor();
   }
 
