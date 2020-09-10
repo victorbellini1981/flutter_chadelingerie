@@ -121,135 +121,137 @@ class _LingeriesState extends State<Lingeries> {
 
       preco_tabelaProd = retorno['obj']['preco_tabela'];
       prod = AlertDialog(
-          contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
           content: InkWell(
-            onTap: () {},
-            child: Wrap(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(left: 4),
-                  child: Column(
-                    children: <Widget>[
-                      retorno['obj']['link'] == '{NULL}'
-                          ? InkWell(
-                              child: Image.asset('assets/images/semfoto.jpeg'),
-                              onTap: () {
-                                Navigator.of(context).pop();
-                              },
-                            )
-                          : CarouselSlider(
-                              options: CarouselOptions(aspectRatio: 44 / 44),
-                              items: linkProd
-                                  .map((item) => InkWell(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Container(
-                                        child: Image.network(
-                                            'https://sistemaagely.com.br:8345/' +
-                                                item),
-                                      )))
-                                  .toList(),
-                            ),
-                      Text(
-                        'Descrição: ' + descricaoProd,
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      Text(
-                        'Ref: ' + referenciaProd,
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      Text(
-                        'Marca: ' + marcaProd,
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Tamanhos: ',
-                            style: TextStyle(color: Colors.red),
-                          ),
-                          Container(
-                              height: 20,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis
-                                    .horizontal, // Axis.horizontal for horizontal list view.
-                                itemCount: tamanhosProd.length,
-                                itemBuilder: (ctx, index) {
-                                  return Align(
-                                      child: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          tamEscolhido[indexP] =
-                                              tamanhosProd[index];
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              border: Border.all()),
-                                          child: Text(
-                                            '${tamanhosProd[index]}',
-                                            style: TextStyle(color: Colors.red),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      )
-                                    ],
-                                  ));
-                                },
-                              )),
-                        ],
-                      ),
-                      Text(
-                        'Valor: ' + preco_tabelaProd.toStringAsFixed(2),
-                        style: TextStyle(color: Colors.red),
-                      ),
-                      SizedBox(
-                          child: RaisedButton(
-                        color: Colors.red,
-                        child: Center(
-                          child: Text(
-                            "Adicionar à Lista",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (tamEscolhido[indexP] == 'T') {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                    content: Text(
-                                  'selecione o tamanho',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ));
-                              },
-                            );
-                          } else {
-                            opcao[indexP] = true;
+        onTap: () {},
+        child: Wrap(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 4),
+              child: Column(
+                children: <Widget>[
+                  retorno['obj']['link'] == '{NULL}'
+                      ? InkWell(
+                          child: Image.asset('assets/images/semfoto.jpeg'),
+                          onTap: () {
                             Navigator.of(context).pop();
-                          }
-                        },
-                        shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0),
+                          },
+                        )
+                      : CarouselSlider(
+                          options: CarouselOptions(aspectRatio: 44 / 44),
+                          items: linkProd
+                              .map((item) => InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    child: Image.network(
+                                        'https://sistemaagely.com.br:8345/' +
+                                            item),
+                                  )))
+                              .toList(),
                         ),
-                      ))
+                  Text('Descrição: ' + descricaoProd,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                      )),
+                  Text(
+                    'Ref: ' + referenciaProd,
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                  Text(
+                    'Marca: ' + marcaProd,
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Tamanhos: ',
+                        style: TextStyle(color: Colors.red, fontSize: 20),
+                      ),
+                      Container(
+                          height: 30,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis
+                                .horizontal, // Axis.horizontal for horizontal list view.
+                            itemCount: tamanhosProd.length,
+                            itemBuilder: (ctx, index) {
+                              return Align(
+                                  child: Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      tamEscolhido[indexP] =
+                                          tamanhosProd[index];
+                                    },
+                                    child: Container(
+                                      decoration:
+                                          BoxDecoration(border: Border.all()),
+                                      child: Text(
+                                        '${tamanhosProd[index]}',
+                                        style: TextStyle(
+                                            color: Colors.red, fontSize: 20),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  )
+                                ],
+                              ));
+                            },
+                          )),
                     ],
                   ),
-                )
-              ],
-            ),
-          ));
+                  Text(
+                    'Valor: ' + preco_tabelaProd.toStringAsFixed(2),
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                  SizedBox(
+                      child: RaisedButton(
+                    color: Colors.red,
+                    child: Center(
+                      child: Text(
+                        "Adicionar à Lista",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (tamEscolhido[indexP] == 'T') {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                                content: Text(
+                              'selecione o tamanho',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ));
+                          },
+                        );
+                      } else {
+                        opcao[indexP] = true;
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30.0),
+                    ),
+                  ))
+                ],
+              ),
+            )
+          ],
+        ),
+      ));
       Navigator.of(context).pop();
       showDialog(
         context: context,
@@ -476,7 +478,14 @@ class _LingeriesState extends State<Lingeries> {
                       height: 10,
                     ),
                     Row(
-                      children: [btnSalvar, btnRetornar],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        btnSalvar,
+                        SizedBox(
+                          width: 5,
+                        ),
+                        btnRetornar
+                      ],
                     )
                   ],
                 ),
