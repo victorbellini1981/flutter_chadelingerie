@@ -221,47 +221,50 @@ class _LingeriesState extends State<Lingeries> {
                     style: TextStyle(color: Colors.red, fontSize: 20),
                   ),
                   SizedBox(
+                      width: MediaQuery.of(context).size.width * 1,
                       child: RaisedButton(
-                    color: Colors.red,
-                    child: Center(
-                      child: Text(
-                        "Adicionar à Lista",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    ),
-                    onPressed: () {
-                      if (selecttam == 'T') {
-                        if (tamEscolhido[indexP] == 'T') {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                  content: Text(
-                                'selecione o tamanho',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ));
-                            },
-                          );
-                        } else {
-                          opcao[indexP] = true;
-                          Navigator.of(context).pop();
-                        }
-                      } else {
-                        tamEscolhido[indexP] = selecttam;
-                        opcao[indexP] = true;
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0),
-                    ),
-                  ))
+                        color: Colors.red,
+                        child: Center(
+                          child: Text(
+                            "Adicionar à Lista",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        ),
+                        onPressed: () {
+                          if (selecttam == 'T') {
+                            if (tamEscolhido[indexP] == 'T') {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                      content: Text(
+                                    'selecione o tamanho',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ));
+                                },
+                              );
+                            } else {
+                              opcao[indexP] = true;
+                              Navigator.of(context).pop();
+                            }
+                          } else {
+                            tamEscolhido[indexP] = selecttam;
+                            opcao[indexP] = true;
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                      ))
                 ],
               ),
             )
@@ -279,7 +282,7 @@ class _LingeriesState extends State<Lingeries> {
   @override
   Widget build(BuildContext context) {
     final btnRetornar = SizedBox(
-        width: 150,
+        width: 120,
         child: RaisedButton(
           color: Colors.red,
           child: Center(
@@ -348,6 +351,16 @@ class _LingeriesState extends State<Lingeries> {
                                   );
                                 },
                               ),
+                        opcao[index] == true
+                            ? Text('Ítem selecionado',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 15,
+                                ))
+                            : SizedBox(
+                                height: 0,
+                              ),
                         Text('${listaProdutos[index].descricao}',
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -394,7 +407,7 @@ class _LingeriesState extends State<Lingeries> {
           );
 
     final btnSalvar = SizedBox(
-        width: 150,
+        width: 120,
         child: RaisedButton(
           color: Colors.red,
           child: Center(

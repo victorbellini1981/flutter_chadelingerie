@@ -112,7 +112,7 @@ class _PrincipalState extends State<Principal>
           centerTitle: true,
           backgroundColor: Colors.red,
           title: Text("Chá de lingerie",
-              style: TextStyle(color: Colors.white, fontSize: 30)),
+              style: TextStyle(color: Colors.white, fontSize: 25)),
           // botao filtro do lado direito da tela com filtro de tamanho, lingeries e camisolas
           actions: <Widget>[
             PopupMenuButton(
@@ -340,9 +340,10 @@ class _PrincipalState extends State<Principal>
     final tamLin = Wrap(
       children: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
+              width: 45,
               decoration: BoxDecoration(
                 border: Border.all(),
               ),
@@ -360,12 +361,13 @@ class _PrincipalState extends State<Principal>
                       }),
                   Text(
                     'PP',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ],
               ),
             ),
             Container(
+              width: 45,
               decoration: BoxDecoration(
                 border: Border.all(),
               ),
@@ -383,12 +385,13 @@ class _PrincipalState extends State<Principal>
                       }),
                   Text(
                     'P',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ],
               ),
             ),
             Container(
+              width: 45,
               decoration: BoxDecoration(
                 border: Border.all(),
               ),
@@ -406,12 +409,13 @@ class _PrincipalState extends State<Principal>
                       }),
                   Text(
                     'M',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ],
               ),
             ),
             Container(
+              width: 45,
               decoration: BoxDecoration(
                 border: Border.all(),
               ),
@@ -429,12 +433,13 @@ class _PrincipalState extends State<Principal>
                       }),
                   Text(
                     'G',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ],
               ),
             ),
             Container(
+              width: 45,
               decoration: BoxDecoration(
                 border: Border.all(),
               ),
@@ -452,7 +457,7 @@ class _PrincipalState extends State<Principal>
                       }),
                   Text(
                     'GG',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 15),
                   ),
                 ],
               ),
@@ -465,7 +470,7 @@ class _PrincipalState extends State<Principal>
         contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
         title: const Text('Selecione o tamanho'),
         content: Container(
-          width: 300,
+          width: 320,
           child: tamLin,
         ));
   }

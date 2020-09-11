@@ -336,7 +336,7 @@ class _PerfilState extends State<Perfil> {
       decoration: const InputDecoration(
         labelText: 'Complemento',
         labelStyle: TextStyle(color: Colors.red),
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
         ),
@@ -861,11 +861,11 @@ class _PerfilState extends State<Perfil> {
                         Row(
                           children: <Widget>[
                             Expanded(
-                              flex: 6,
+                              flex: 7,
                               child: complemento,
                             ),
                             Expanded(
-                              flex: 2,
+                              flex: 1,
                               child: Text(" "),
                             ),
                             Expanded(

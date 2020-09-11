@@ -249,7 +249,6 @@ class _LoginState extends State<Login> {
 
     final btnEntrar = SizedBox(
       width: MediaQuery.of(context).size.width * 1,
-      height: 40,
       child: RaisedButton(
         child: Text('Entrar',
             textAlign: TextAlign.center, style: TextStyle(fontSize: 20.0)),
@@ -264,7 +263,6 @@ class _LoginState extends State<Login> {
 
     final btnFacebook = SizedBox(
       width: MediaQuery.of(context).size.width * 1,
-      height: 40,
       child: RaisedButton(
         child: Text('Entre com o Facebook',
             textAlign: TextAlign.center, style: TextStyle(fontSize: 20.0)),
@@ -279,7 +277,6 @@ class _LoginState extends State<Login> {
 
     final btnGoogle = SizedBox(
       width: MediaQuery.of(context).size.width * 1,
-      height: 40,
       child: RaisedButton(
         child: Text('Entre com o Google',
             textAlign: TextAlign.center, style: TextStyle(fontSize: 20.0)),
