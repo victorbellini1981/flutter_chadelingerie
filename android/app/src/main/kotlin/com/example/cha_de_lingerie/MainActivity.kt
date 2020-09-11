@@ -1,4 +1,4 @@
-package com.example.cha_de_lingerie
+package com.agely.chadelingerie
 
 import io.flutter.embedding.android.FlutterActivity
 

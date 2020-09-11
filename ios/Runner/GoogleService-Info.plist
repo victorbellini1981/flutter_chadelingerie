@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>866715179835-9mitgojpsnld00ctfnss1q05nt065gc9.apps.googleusercontent.com</string>
+	<string>866715179835-h1irtdl8tfdbqsc4ifk1ptn56438u7pm.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.866715179835-9mitgojpsnld00ctfnss1q05nt065gc9</string>
+	<string>com.googleusercontent.apps.866715179835-h1irtdl8tfdbqsc4ifk1ptn56438u7pm</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>866715179835-brs4mgmkrsrpju7of5d0ljgv7r17ch3g.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.chaDeLingerie</string>
+	<string>com.agely.chadelingerie</string>
 	<key>PROJECT_ID</key>
 	<string>cha-de-lingerie-ebda2</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:866715179835:ios:8bde5e79b43635665db51e</string>
+	<string>1:866715179835:ios:c90dc11503c0c6565db51e</string>
 	<key>DATABASE_URL</key>
 	<string>https://cha-de-lingerie-ebda2.firebaseio.com</string>
 </dict>

@@ -43,7 +43,6 @@ class _LingeriesState extends State<Lingeries> {
   // ignore: non_constant_identifier_names
   var preco_tabelaProd = 0.0;
   AlertDialog prod = AlertDialog();
-  List tamanhosProduto = List();
 
   void tamanhosLin() {
     if (listaProdutos.length != 0) {
@@ -164,48 +163,59 @@ class _LingeriesState extends State<Lingeries> {
                     'Marca: ' + marcaProd,
                     style: TextStyle(color: Colors.red, fontSize: 20),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Tamanhos: ',
-                        style: TextStyle(color: Colors.red, fontSize: 20),
-                      ),
-                      Container(
-                          height: 30,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis
-                                .horizontal, // Axis.horizontal for horizontal list view.
-                            itemCount: tamanhosProd.length,
-                            itemBuilder: (ctx, index) {
-                              return Align(
-                                  child: Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      tamEscolhido[indexP] =
-                                          tamanhosProd[index];
-                                    },
-                                    child: Container(
-                                      decoration:
-                                          BoxDecoration(border: Border.all()),
-                                      child: Text(
-                                        '${tamanhosProd[index]}',
-                                        style: TextStyle(
-                                            color: Colors.red, fontSize: 20),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  )
-                                ],
-                              ));
-                            },
-                          )),
-                    ],
-                  ),
+                  selecttam == 'T'
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Tamanhos: ',
+                              style: TextStyle(color: Colors.red, fontSize: 20),
+                            ),
+                            Container(
+                                height: 30,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis
+                                      .horizontal, // Axis.horizontal for horizontal list view.
+                                  itemCount: tamanhosProd.length,
+                                  itemBuilder: (ctx, index) {
+                                    return Align(
+                                        child: Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            tamEscolhido[indexP] =
+                                                tamanhosProd[index];
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all()),
+                                            child: Text(
+                                              '${tamanhosProd[index]}',
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 20),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        )
+                                      ],
+                                    ));
+                                  },
+                                )),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Tam. Selecionado: ' + selecttam,
+                              style: TextStyle(color: Colors.red, fontSize: 20),
+                            ),
+                          ],
+                        ),
                   Text(
                     'Valor: ' + preco_tabelaProd.toStringAsFixed(2),
                     style: TextStyle(color: Colors.red, fontSize: 20),
@@ -223,21 +233,27 @@ class _LingeriesState extends State<Lingeries> {
                       ),
                     ),
                     onPressed: () {
-                      if (tamEscolhido[indexP] == 'T') {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                                content: Text(
-                              'selecione o tamanho',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ));
-                          },
-                        );
+                      if (selecttam == 'T') {
+                        if (tamEscolhido[indexP] == 'T') {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                  content: Text(
+                                'selecione o tamanho',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ));
+                            },
+                          );
+                        } else {
+                          opcao[indexP] = true;
+                          Navigator.of(context).pop();
+                        }
                       } else {
+                        tamEscolhido[indexP] = selecttam;
                         opcao[indexP] = true;
                         Navigator.of(context).pop();
                       }

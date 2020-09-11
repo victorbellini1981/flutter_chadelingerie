@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:866715179835:android:06c519c31cba5fee5db51e",
+        "mobilesdk_app_id": "1:866715179835:android:111d29783f99db775db51e",
         "android_client_info": {
-          "package_name": "com.example.cha_de_lingerie"
+          "package_name": "com.agely.chadelingerie"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "866715179835-ankpgj9i39n1udrtmlun7bd21rl60bm3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agely.chadelingerie",
+            "certificate_hash": "a36598b936d735027af058c690ce96f1a1c29315"
+          }
+        },
         {
           "client_id": "866715179835-ltf627tshqockbnckrpuognp92ua94gb.apps.googleusercontent.com",
           "client_type": 3
@@ -30,6 +38,13 @@
             {
               "client_id": "866715179835-ltf627tshqockbnckrpuognp92ua94gb.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "866715179835-h1irtdl8tfdbqsc4ifk1ptn56438u7pm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.agely.chadelingerie"
+              }
             }
           ]
         }

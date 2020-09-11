@@ -122,6 +122,23 @@ class _PrincipalState extends State<Principal>
                 PopupMenuItem(
                   child: GestureDetector(
                       onTap: () {
+                        // função pra carregar todos os produtos na lista
+                        selecttam = 'T';
+                        listaProdutos = normal;
+                        selectedIndex = 2;
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Principal()));
+                      },
+                      child: Text(
+                        ' Todos',
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
+                PopupMenuItem(
+                  child: GestureDetector(
+                      onTap: () {
                         showDialog(
                           // chama um pop-up para noiva selecionar o tamanho da lingerie
                           context: context,
@@ -285,7 +302,6 @@ class _PrincipalState extends State<Principal>
   var tam;
   var tamanhosP = '';
   List tamsLingerie = List();
-  List tamanhosProd = List();
 
   Widget _buildAboutDialog(BuildContext context) {
     void tamanhos() {
@@ -295,7 +311,6 @@ class _PrincipalState extends State<Principal>
       filtroLingerie = [];
       for (int i = 0; i < listaProdutos.length; i++) {
         tamsLingerie = [];
-        tamanhosProd = [];
         tamanhosP = listaProdutos[i].tamanhos;
         tamanhosP = tamanhosP.replaceAll("{", "");
         tamanhosP = tamanhosP.replaceAll("}", "");
