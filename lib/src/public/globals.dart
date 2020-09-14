@@ -8,6 +8,7 @@ ConfigApp configApp =
 UsuarioLembrar usuarioLembrar;
 // variáveis que trazem os dados da noiva
 var fotoPerfilN;
+var idNoiva;
 var nomeNoiva;
 var fotoNoiva;
 var emailNoiva;

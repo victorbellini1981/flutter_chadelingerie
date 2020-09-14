@@ -233,6 +233,7 @@ class _LoginState extends State<Login> {
             final prefs = await SharedPreferences.getInstance();
             prefs.setString('usuarioLembrar', json.encode(usuarioLembrar));
           }
+          idNoiva = obj["id"];
           nomeNoiva = obj["nome"];
           fotoNoiva = obj["fotoPerfil"];
           emailNoiva = obj["email"];
