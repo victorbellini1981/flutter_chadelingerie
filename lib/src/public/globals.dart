@@ -27,3 +27,4 @@ List listaRecados;
 bool lin = false;
 bool cam = false;
 var selecttam = 'T';
+List<bool> opcao = new List<bool>();
