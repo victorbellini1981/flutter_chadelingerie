@@ -125,6 +125,7 @@ class _PrincipalState extends State<Principal>
                         // função pra carregar todos os produtos na lista
                         selecttam = 'T';
                         listaProdutos = normal;
+                        opcao = opcao2;
                         selectedIndex = 2;
                         Navigator.push(
                             context,
@@ -155,28 +156,36 @@ class _PrincipalState extends State<Principal>
                   child: GestureDetector(
                       onTap: () {
                         // carrega somente lingeries na lista
-                        lin =
-                            true; // variável ativada pra qdo entrar na lista de camisolas
-                        //forçar a lista de produtos voltar pra lista com todos os produtos
+                        lin = true;
                         if (cam == true) {
                           listaProdutos = normal;
+                          opcao = opcao2;
                         }
-                        cam = false;
+
                         filtroLingerie = [];
                         for (int i = 0; i < listaProdutos.length; i++) {
-                          if (listaProdutos[i].descricao.contains('Lingerie')) {
-                            Produtos prod = Produtos();
-                            prod.link = '${listaProdutos[i].link}';
-                            prod.referencia = '${listaProdutos[i].referencia}';
-                            prod.descricao = '${listaProdutos[i].descricao}';
-                            prod.tamanhos = '${listaProdutos[i].tamanhos}';
-                            prod.marca = '${listaProdutos[i].marca}';
-                            prod.preco_tabela = double.parse(
-                                '${listaProdutos[i].preco_tabela}');
-                            filtroLingerie.add(prod);
+                          if (opcao[i] == false) {
+                            if (listaProdutos[i]
+                                .descricao
+                                .contains('Lingerie')) {
+                              Produtos prod = Produtos();
+                              prod.link = '${listaProdutos[i].link}';
+                              prod.referencia =
+                                  '${listaProdutos[i].referencia}';
+                              prod.descricao = '${listaProdutos[i].descricao}';
+                              prod.tamanhos = '${listaProdutos[i].tamanhos}';
+                              prod.marca = '${listaProdutos[i].marca}';
+                              prod.preco_tabela = double.parse(
+                                  '${listaProdutos[i].preco_tabela}');
+                              filtroLingerie.add(prod);
+                            }
                           }
                         }
                         listaProdutos = filtroLingerie;
+                        opcao = [];
+                        for (int i = 0; i < listaProdutos.length; i++) {
+                          opcao.add(false);
+                        }
                         selectedIndex = 2;
                         Navigator.push(
                             context,
@@ -192,28 +201,35 @@ class _PrincipalState extends State<Principal>
                   child: GestureDetector(
                       onTap: () {
                         // função pra carregar somente camisolas na lista
-                        cam =
-                            true; // variável ativada pra qdo entrar na lista de lingeries
-                        //forçar a lista de produtos voltar pra lista com todos os produtos
+                        cam = true;
                         if (lin == true) {
                           listaProdutos = normal;
+                          opcao = opcao2;
                         }
-                        lin = false;
                         filtroLingerie = [];
                         for (int i = 0; i < listaProdutos.length; i++) {
-                          if (listaProdutos[i].descricao.contains('Camisola')) {
-                            Produtos prod = Produtos();
-                            prod.link = '${listaProdutos[i].link}';
-                            prod.referencia = '${listaProdutos[i].referencia}';
-                            prod.descricao = '${listaProdutos[i].descricao}';
-                            prod.tamanhos = '${listaProdutos[i].tamanhos}';
-                            prod.marca = '${listaProdutos[i].marca}';
-                            prod.preco_tabela = double.parse(
-                                '${listaProdutos[i].preco_tabela}');
-                            filtroLingerie.add(prod);
+                          if (opcao[i] == false) {
+                            if (listaProdutos[i]
+                                .descricao
+                                .contains('Camisola')) {
+                              Produtos prod = Produtos();
+                              prod.link = '${listaProdutos[i].link}';
+                              prod.referencia =
+                                  '${listaProdutos[i].referencia}';
+                              prod.descricao = '${listaProdutos[i].descricao}';
+                              prod.tamanhos = '${listaProdutos[i].tamanhos}';
+                              prod.marca = '${listaProdutos[i].marca}';
+                              prod.preco_tabela = double.parse(
+                                  '${listaProdutos[i].preco_tabela}');
+                              filtroLingerie.add(prod);
+                            }
                           }
                         }
                         listaProdutos = filtroLingerie;
+                        opcao = [];
+                        for (int i = 0; i < listaProdutos.length; i++) {
+                          opcao.add(false);
+                        }
                         selectedIndex = 2;
                         Navigator.push(
                             context,
@@ -305,33 +321,35 @@ class _PrincipalState extends State<Principal>
 
   Widget _buildAboutDialog(BuildContext context) {
     void tamanhos() {
-      if (cam == false && lin == false) {
-        listaProdutos = normal;
-      }
       filtroLingerie = [];
       for (int i = 0; i < listaProdutos.length; i++) {
-        tamsLingerie = [];
-        tamanhosP = listaProdutos[i].tamanhos;
-        tamanhosP = tamanhosP.replaceAll("{", "");
-        tamanhosP = tamanhosP.replaceAll("}", "");
-        tamsLingerie = tamanhosP.split(',');
-        for (int j = 0; j < tamsLingerie.length; j++) {
-          if (tamsLingerie[j] == selecttam) {
-            Produtos prod = Produtos();
-            prod.link = '${listaProdutos[i].link}';
-            prod.referencia = '${listaProdutos[i].referencia}';
-            prod.descricao = '${listaProdutos[i].descricao}';
-            prod.tamanhos = '${listaProdutos[i].tamanhos}';
-            prod.marca = '${listaProdutos[i].marca}';
-            prod.preco_tabela =
-                double.parse('${listaProdutos[i].preco_tabela}');
-            filtroLingerie.add(prod);
-            break;
+        if (opcao[i] == false) {
+          tamsLingerie = [];
+          tamanhosP = listaProdutos[i].tamanhos;
+          tamanhosP = tamanhosP.replaceAll("{", "");
+          tamanhosP = tamanhosP.replaceAll("}", "");
+          tamsLingerie = tamanhosP.split(',');
+          for (int j = 0; j < tamsLingerie.length; j++) {
+            if (tamsLingerie[j] == selecttam) {
+              Produtos prod = Produtos();
+              prod.link = '${listaProdutos[i].link}';
+              prod.referencia = '${listaProdutos[i].referencia}';
+              prod.descricao = '${listaProdutos[i].descricao}';
+              prod.tamanhos = '${listaProdutos[i].tamanhos}';
+              prod.marca = '${listaProdutos[i].marca}';
+              prod.preco_tabela =
+                  double.parse('${listaProdutos[i].preco_tabela}');
+              filtroLingerie.add(prod);
+              break;
+            }
           }
         }
       }
-
       listaProdutos = filtroLingerie;
+      opcao = [];
+      for (int i = 0; i < listaProdutos.length; i++) {
+        opcao.add(false);
+      }
       selectedIndex = 2;
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Principal()));

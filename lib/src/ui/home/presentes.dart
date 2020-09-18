@@ -17,6 +17,7 @@ class _PresentesState extends State<Presentes> {
   void initState() {
     super.initState();
     tamanhosElinks();
+    listaPresNoiva();
     getUrlServidor();
   }
 
@@ -32,6 +33,23 @@ class _PresentesState extends State<Presentes> {
   List tamanhosProd = List();
   // ignore: non_constant_identifier_names
   var preco_tabelaProd = 0.0;
+
+  void listaPresNoiva() {
+    /* chamar função getlistapresnoiva, se retorno situação = sucesso
+      list2 = retorno[obj], presentesSel = list.map (produto)...*/
+    listaProdutos = normal;
+    opcao = [];
+    for (int i = 0; i < listaProdutos.length; i++) {
+      opcao.add(false);
+    }
+    for (int i = 0; i < listaProdutos.length; i++) {
+      for (int j = 0; j < presentesSel.length; j++) {
+        if (listaProdutos[i].descricao == presentesSel[j].descricao) {
+          opcao[i] = true;
+        }
+      }
+    }
+  }
 
   void tamanhosElinks() {
     for (var i = 0; i < presentesSel.length; i++) {

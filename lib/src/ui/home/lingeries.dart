@@ -47,11 +47,9 @@ class _LingeriesState extends State<Lingeries> {
     if (listaProdutos.length != 0) {
       for (int i = 0; i < listaProdutos.length; i++) {
         tamEscolhido.add('T');
-        opcao.add(false);
       }
     } else {
       tamEscolhido = [];
-      opcao = [];
     }
   }
 
@@ -87,270 +85,251 @@ class _LingeriesState extends State<Lingeries> {
 
   // função que detalha a lingerie escolhida
   detalhesP() async {
-    if (opcao[indexP] == true) {
-      _scaffoldKey.currentState.showSnackBar(
-          new SnackBar(content: new Text('produto já foi selecionado')));
-    } else {
-      Map retorno = await promessaB(_scaffoldKey, "GetProduto", referenciaP);
-      if (retorno["situacao"] == "sucesso") {
-        linkProd = [];
-        linkP = retorno['obj']['link'];
-        linkP = linkP.replaceAll("{", "");
-        linkP = linkP.replaceAll("}", "");
-        linkProd = linkP.split(',');
-        descricaoProd = retorno['obj']['descricao'];
-        referenciaProd = retorno['obj']['referencia'];
-        marcaProd = retorno['obj']['marca'];
-        tam = [];
-        tamanhosProd = [];
-        tamanhosP = retorno['obj']['tamanhos'];
-        tamanhosP = tamanhosP.replaceAll("{", "");
-        tamanhosP = tamanhosP.replaceAll("}", "");
-        tam = tamanhosP.split(',');
-        tamanhosProd.add(tam[0]);
-        for (int i = 0; i < tam.length; i++) {
-          comp = false;
-          for (int j = 0; j < tamanhosProd.length; j++) {
-            if (tam[i] == tamanhosProd[j]) {
-              comp = true;
-              break;
-            }
-          }
-          if (comp == false) {
-            tamanhosProd.add(tam[i]);
+    Map retorno = await promessaB(_scaffoldKey, "GetProduto", referenciaP);
+    if (retorno["situacao"] == "sucesso") {
+      linkProd = [];
+      linkP = retorno['obj']['link'];
+      linkP = linkP.replaceAll("{", "");
+      linkP = linkP.replaceAll("}", "");
+      linkProd = linkP.split(',');
+      descricaoProd = retorno['obj']['descricao'];
+      referenciaProd = retorno['obj']['referencia'];
+      marcaProd = retorno['obj']['marca'];
+      tam = [];
+      tamanhosProd = [];
+      tamanhosP = retorno['obj']['tamanhos'];
+      tamanhosP = tamanhosP.replaceAll("{", "");
+      tamanhosP = tamanhosP.replaceAll("}", "");
+      tam = tamanhosP.split(',');
+      tamanhosProd.add(tam[0]);
+      for (int i = 0; i < tam.length; i++) {
+        comp = false;
+        for (int j = 0; j < tamanhosProd.length; j++) {
+          if (tam[i] == tamanhosProd[j]) {
+            comp = true;
+            break;
           }
         }
-        for (int i = 0; i < tamanhosProd.length; i++) {
-          if (tamanhosProd[i] == 'PP') {
-            tamanhosProd[i] = 1;
-          } else if (tamanhosProd[i] == 'P') {
-            tamanhosProd[i] = 2;
-          } else if (tamanhosProd[i] == 'M') {
-            tamanhosProd[i] = 3;
-          } else if (tamanhosProd[i] == 'G') {
-            tamanhosProd[i] = 4;
-          } else if (tamanhosProd[i] == 'GG') {
-            tamanhosProd[i] = 5;
-          } else if (tamanhosProd[i] == 'EG') {
-            tamanhosProd[i] = 6;
-          } else if (tamanhosProd[i] == 'XG') {
-            tamanhosProd[i] = 7;
-          } else if (tamanhosProd[i] == 'XXG') {
-            tamanhosProd[i] = 8;
-          }
+        if (comp == false) {
+          tamanhosProd.add(tam[i]);
         }
-        tamanhosProd.sort();
-        for (int i = 0; i < tamanhosProd.length; i++) {
-          if (tamanhosProd[i] == 1) {
-            tamanhosProd[i] = 'PP';
-          } else if (tamanhosProd[i] == 2) {
-            tamanhosProd[i] = 'P';
-          } else if (tamanhosProd[i] == 3) {
-            tamanhosProd[i] = 'M';
-          } else if (tamanhosProd[i] == 4) {
-            tamanhosProd[i] = 'G';
-          } else if (tamanhosProd[i] == 5) {
-            tamanhosProd[i] = 'GG';
-          } else if (tamanhosProd[i] == 6) {
-            tamanhosProd[i] = 'EG';
-          } else if (tamanhosProd[i] == 7) {
-            tamanhosProd[i] = 'XG';
-          } else if (tamanhosProd[i] == 8) {
-            tamanhosProd[i] = 'XXG';
-          }
+      }
+      for (int i = 0; i < tamanhosProd.length; i++) {
+        if (tamanhosProd[i] == 'PP') {
+          tamanhosProd[i] = 1;
+        } else if (tamanhosProd[i] == 'P') {
+          tamanhosProd[i] = 2;
+        } else if (tamanhosProd[i] == 'M') {
+          tamanhosProd[i] = 3;
+        } else if (tamanhosProd[i] == 'G') {
+          tamanhosProd[i] = 4;
+        } else if (tamanhosProd[i] == 'GG') {
+          tamanhosProd[i] = 5;
+        } else if (tamanhosProd[i] == 'EG') {
+          tamanhosProd[i] = 6;
+        } else if (tamanhosProd[i] == 'XG') {
+          tamanhosProd[i] = 7;
+        } else if (tamanhosProd[i] == 'XXG') {
+          tamanhosProd[i] = 8;
         }
-        preco_tabelaProd = retorno['obj']['preco_tabela'];
-        prod = AlertDialog(
-            content: InkWell(
-          onTap: () {},
-          child: Wrap(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: 4),
-                child: Column(
-                  children: <Widget>[
-                    retorno['obj']['link'] == '{NULL}'
-                        ? InkWell(
-                            child: Image.asset('assets/images/semfoto.jpeg'),
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        : CarouselSlider(
-                            options: CarouselOptions(aspectRatio: 44 / 44),
-                            items: linkProd
-                                .map((item) => InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Container(
-                                      child: Image.network(
-                                          'https://sistemaagely.com.br:8345/' +
-                                              item),
-                                    )))
-                                .toList(),
-                          ),
-                    Text('Descrição: ' + descricaoProd,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 20,
-                        )),
-                    Text(
-                      'Ref: ' + referenciaProd,
-                      style: TextStyle(color: Colors.red, fontSize: 20),
-                    ),
-                    Text(
-                      'Marca: ' + marcaProd,
-                      style: TextStyle(color: Colors.red, fontSize: 20),
-                    ),
-                    selecttam == 'T'
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Tamanhos: ',
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 20),
-                              ),
-                              Container(
-                                  height: 30,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis
-                                        .horizontal, // Axis.horizontal for horizontal list view.
-                                    itemCount: tamanhosProd.length,
-                                    itemBuilder: (ctx, index) {
-                                      return Align(
-                                          child: Row(
-                                        children: [
-                                          InkWell(
-                                              onTap: () {
-                                                tamEscolhido[indexP] =
-                                                    tamanhosProd[index];
-                                                Navigator.of(context).pop();
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          prod,
-                                                );
-                                              },
-                                              child: tamEscolhido[indexP] !=
-                                                      tamanhosProd[index]
-                                                  ? Container(
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all()),
-                                                      child: Text(
-                                                        '${tamanhosProd[index]}',
-                                                        style: TextStyle(
-                                                            color: Colors.red,
-                                                            fontSize: 20),
-                                                      ),
-                                                    )
-                                                  : Container(
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.grey,
-                                                          border: Border.all()),
-                                                      child: Text(
-                                                        '${tamanhosProd[index]}',
-                                                        style: TextStyle(
-                                                            color: Colors.red,
-                                                            fontSize: 20),
-                                                      ),
-                                                    )),
-                                          SizedBox(
-                                            width: 10,
-                                          )
-                                        ],
-                                      ));
-                                    },
-                                  )),
-                            ],
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Tam. Selecionado: ' + selecttam,
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 20),
-                              ),
-                            ],
-                          ),
-                    Text(
-                      'Valor: ' + preco_tabelaProd.toStringAsFixed(2),
-                      style: TextStyle(color: Colors.red, fontSize: 20),
-                    ),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width * 1,
-                        child: RaisedButton(
-                          color: Colors.red,
-                          child: Center(
-                            child: Text(
-                              "Adicionar à Lista",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
+      }
+      tamanhosProd.sort();
+      for (int i = 0; i < tamanhosProd.length; i++) {
+        if (tamanhosProd[i] == 1) {
+          tamanhosProd[i] = 'PP';
+        } else if (tamanhosProd[i] == 2) {
+          tamanhosProd[i] = 'P';
+        } else if (tamanhosProd[i] == 3) {
+          tamanhosProd[i] = 'M';
+        } else if (tamanhosProd[i] == 4) {
+          tamanhosProd[i] = 'G';
+        } else if (tamanhosProd[i] == 5) {
+          tamanhosProd[i] = 'GG';
+        } else if (tamanhosProd[i] == 6) {
+          tamanhosProd[i] = 'EG';
+        } else if (tamanhosProd[i] == 7) {
+          tamanhosProd[i] = 'XG';
+        } else if (tamanhosProd[i] == 8) {
+          tamanhosProd[i] = 'XXG';
+        }
+      }
+      preco_tabelaProd = retorno['obj']['preco_tabela'];
+      prod = AlertDialog(
+          content: InkWell(
+        onTap: () {},
+        child: Wrap(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 4),
+              child: Column(
+                children: <Widget>[
+                  retorno['obj']['link'] == '{NULL}'
+                      ? InkWell(
+                          child: Image.asset('assets/images/semfoto.jpeg'),
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                        )
+                      : CarouselSlider(
+                          options: CarouselOptions(aspectRatio: 44 / 44),
+                          items: linkProd
+                              .map((item) => InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    child: Image.network(
+                                        'https://sistemaagely.com.br:8345/' +
+                                            item),
+                                  )))
+                              .toList(),
+                        ),
+                  Text('Descrição: ' + descricaoProd,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                      )),
+                  Text(
+                    'Ref: ' + referenciaProd,
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                  Text(
+                    'Marca: ' + marcaProd,
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                  selecttam == 'T'
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Tamanhos: ',
+                              style: TextStyle(color: Colors.red, fontSize: 20),
                             ),
-                          ),
-                          onPressed: () {
-                            if (selecttam == 'T') {
-                              if (tamEscolhido[indexP] == 'T') {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                        content: Text(
-                                      'selecione o tamanho',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
+                            Container(
+                                height: 30,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis
+                                      .horizontal, // Axis.horizontal for horizontal list view.
+                                  itemCount: tamanhosProd.length,
+                                  itemBuilder: (ctx, index) {
+                                    return Align(
+                                        child: Row(
+                                      children: [
+                                        InkWell(
+                                            onTap: () {
+                                              tamEscolhido[indexP] =
+                                                  tamanhosProd[index];
+                                              Navigator.of(context).pop();
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        prod,
+                                              );
+                                            },
+                                            child: tamEscolhido[indexP] !=
+                                                    tamanhosProd[index]
+                                                ? Container(
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all()),
+                                                    child: Text(
+                                                      '${tamanhosProd[index]}',
+                                                      style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontSize: 20),
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.grey,
+                                                        border: Border.all()),
+                                                    child: Text(
+                                                      '${tamanhosProd[index]}',
+                                                      style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontSize: 20),
+                                                    ),
+                                                  )),
+                                        SizedBox(
+                                          width: 10,
+                                        )
+                                      ],
                                     ));
                                   },
-                                );
-                              } else {
-                                opcao[indexP] = true;
-                                Navigator.of(context).pop();
-                                /*selectedIndex = 2;
-
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Principal()));*/
-                              }
-                            } else {
-                              tamEscolhido[indexP] = selecttam;
-                              opcao[indexP] = true;
-                              /*Navigator.of(context).pop();
-                              selectedIndex = 2;
-
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Principal()));*/
-                            }
-                          },
-                          shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0),
+                                )),
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Tam. Selecionado: ' + selecttam,
+                              style: TextStyle(color: Colors.red, fontSize: 20),
+                            ),
+                          ],
+                        ),
+                  Text(
+                    'Valor: ' + preco_tabelaProd.toStringAsFixed(2),
+                    style: TextStyle(color: Colors.red, fontSize: 20),
+                  ),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width * 1,
+                      child: RaisedButton(
+                        color: Colors.red,
+                        child: Center(
+                          child: Text(
+                            "Adicionar à Lista",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
-                        ))
-                  ],
-                ),
-              )
-            ],
-          ),
-        ));
-        Navigator.of(context).pop();
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => prod,
-        );
-      }
+                        ),
+                        onPressed: () {
+                          if (selecttam == 'T') {
+                            if (tamEscolhido[indexP] == 'T') {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                      content: Text(
+                                    'selecione o tamanho',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ));
+                                },
+                              );
+                            } else {
+                              opcao[indexP] = true;
+                              Navigator.of(context).pop();
+                            }
+                          } else {
+                            tamEscolhido[indexP] = selecttam;
+                            opcao[indexP] = true;
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                      ))
+                ],
+              ),
+            )
+          ],
+        ),
+      ));
+      Navigator.of(context).pop();
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => prod,
+      );
     }
   }
 
@@ -404,11 +383,17 @@ class _LingeriesState extends State<Lingeries> {
                                   indexP = index;
                                   referenciaP =
                                       '${listaProdutos[index].referencia}';
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        _buildAboutDialog(context),
-                                  );
+                                  opcao[index] == false
+                                      ? showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              _buildAboutDialog(context),
+                                        )
+                                      : _scaffoldKey.currentState.showSnackBar(
+                                          new SnackBar(
+                                              duration: Duration(seconds: 2),
+                                              content: new Text(
+                                                  'Produto já selecionado')));
                                 },
                               )
                             : InkWell(
@@ -419,11 +404,17 @@ class _LingeriesState extends State<Lingeries> {
                                   indexP = index;
                                   referenciaP =
                                       '${listaProdutos[index].referencia}';
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        _buildAboutDialog(context),
-                                  );
+                                  opcao[index] == false
+                                      ? showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              _buildAboutDialog(context),
+                                        )
+                                      : _scaffoldKey.currentState.showSnackBar(
+                                          new SnackBar(
+                                              duration: Duration(seconds: 2),
+                                              content: new Text(
+                                                  'Produto já selecionado')));
                                 },
                               ),
                         opcao[index] == true
@@ -466,11 +457,17 @@ class _LingeriesState extends State<Lingeries> {
                           onPressed: () {
                             indexP = index;
                             referenciaP = '${listaProdutos[index].referencia}';
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  _buildAboutDialog(context),
-                            );
+                            opcao[index] == false
+                                ? showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        _buildAboutDialog(context),
+                                  )
+                                : _scaffoldKey.currentState.showSnackBar(
+                                    new SnackBar(
+                                        duration: Duration(seconds: 2),
+                                        content: new Text(
+                                            'Produto já selecionado')));
                           },
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0),

@@ -28,3 +28,4 @@ bool lin = false;
 bool cam = false;
 var selecttam = 'T';
 List<bool> opcao = new List<bool>();
+List<bool> opcao2 = List<bool>();

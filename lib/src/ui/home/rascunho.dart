@@ -262,4 +262,11 @@ Row(
                     )
                   ],
                 );
+
+    produtos = [0,3,4] opcao = [false, true, false, true, true, false]
+    filtrolin = [2,3,5]
+
+    for filtrolin
+     se opcao[filtrolin[i]] == false então opcao[i] = false
+      senao opcao[i] = true
 */

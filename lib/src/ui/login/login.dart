@@ -48,6 +48,19 @@ class _LoginState extends State<Login> {
       listaProdutos =
           list.map((produto) => Produtos.fromJson(produto)).toList();
       normal = list.map((produto) => Produtos.fromJson(produto)).toList();
+      for (int i = 0; i < listaProdutos.length; i++) {
+        opcao.add(false);
+      }
+      /* chamar função getlistapresnoiva, se retorno situação = sucesso
+      list2 = retorno[obj], presentesSel = list.map (produto)...*/
+      for (int i = 0; i < listaProdutos.length; i++) {
+        for (int j = 0; j < presentesSel.length; j++) {
+          if (listaProdutos[i].descricao == presentesSel[j].descricao) {
+            opcao[i] = true;
+          }
+        }
+      }
+      opcao2 = opcao;
     }
   }
 
