@@ -2,6 +2,7 @@ library my_prj.globals;
 
 import 'package:cha_de_lingerie/src/models/UsuarioLembrar.dart';
 import 'package:cha_de_lingerie/src/public/ConfigApp.dart';
+import 'package:flutter/material.dart';
 
 ConfigApp configApp =
     ConfigApp("cha_de_lingerie", "_cha_de_lingerieServer", true);
@@ -29,3 +30,4 @@ bool cam = false;
 var selecttam = 'T';
 List<bool> opcao = new List<bool>();
 List<bool> opcao2 = List<bool>();
+var editar = false; // verifica se vai alterar ou salvar os dados do perfil

@@ -1,5 +1,4 @@
 import 'package:cha_de_lingerie/core/utils.dart';
-import 'package:cha_de_lingerie/src/models/Usuario.dart';
 import 'package:cha_de_lingerie/src/ui/login/login.dart';
 import 'package:flutter/material.dart';
 
@@ -57,6 +56,7 @@ class _CadastroState extends State<Cadastro> {
             OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
       ),
       keyboardType: TextInputType.text,
+      obscureText: true,
       controller: txtsenha,
       validator: (value) {
         if (value.isEmpty) {
@@ -69,17 +69,13 @@ class _CadastroState extends State<Cadastro> {
     void cadastrar() async {
       /*if (txtlogin.text.contains('@') && txtlogin.text.contains('.com')) {
         if (txtsenha.text.length >= 6 && txtsenha.text.length <= 8) {
-          _scaffoldKey.currentState.showSnackBar(SnackBar(
-            content: Text('cadastro realizado com sucesso!'),
-            duration: Duration(seconds: 5),
-          ));*/
-
-      Usuario usuario = Usuario();
-      usuario.email = txtlogin.text;
-      usuario.senha = txtsenha.text;
-
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
-      /*} else {
+        chama serviço que salva o usuário  
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Cadastro realizado com sucesso!!!'),
+        duration: Duration(seconds: 5),
+        ));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+      } else {
           _scaffoldKey.currentState.showSnackBar(SnackBar(
             content: Text('Senha deve conter entre 6 e 8 dígitos.'),
             duration: Duration(seconds: 5),
@@ -91,6 +87,11 @@ class _CadastroState extends State<Cadastro> {
           duration: Duration(seconds: 5),
         ));
       }*/
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Cadastro realizado com sucesso!!!'),
+        duration: Duration(seconds: 5),
+      ));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     }
 
     final btnCadastrar = SizedBox(

@@ -43,6 +43,7 @@ class _LoginState extends State<Login> {
 // função que retorna lista de produtos disponíveis para noiva escolher as lingeries
   void lista2() async {
     Map obj = Map();
+
     Map retorno = await promessa(_scaffoldKey, "GetProdutos", obj);
     if (retorno["situacao"] == "sucesso") {
       list = retorno["obj"];

@@ -49,9 +49,9 @@ class _PerfilState extends State<Perfil> {
   TextEditingController txtestado = new TextEditingController();
   TextEditingController txtmensagem = new TextEditingController();
 
-/*chamar função que trás todos os dados da pessoa e do evento onde idnoiva = 
-  idNoiva, se já tiver cadastrado aparecerão 
-  as informações nos campos e variavel albumServidor = true, se não campos ficam vazios.
+/*se editar = true
+  chama a função que trás todos os dados da pessoa e do evento onde idnoiva = 
+  idNoiva e variavel albumServidor = true.
 */
 
 //função que busca dadosdo endereço através de um CEP fornecido pelo usuário
@@ -611,147 +611,176 @@ class _PerfilState extends State<Perfil> {
             ),
           ),
           onPressed: () {
-            selectedIndex = 0;
             // verificações de campos preenchidos, caso todos estejam os dados são salvos, se não
             // dá msgde erro
-            /*if (_image == null && fotoNoiva == null) {
-              _scaffoldKey.currentState.showSnackBar(SnackBar(
-                content: Text('Tirar ou selecionar a foto do perfil!'),
-                duration: Duration(seconds: 3),
-              ));
-            } else if (imagens == null) {
-              _scaffoldKey.currentState.showSnackBar(SnackBar(
-                content: Text('Escolha as fotos do álbum!'),
-                duration: Duration(seconds: 3),
-              ));
-            } else if (txtnome.text == ' ') {
-              _scaffoldKey.currentState.showSnackBar(SnackBar(
-                content: Text('Digite o nome completo!'),
-                duration: Duration(seconds: 3),
-              ));
-            } else if (txtcpf.text.length < 14) {
-              print(txtnome.text);
-              _scaffoldKey.currentState.showSnackBar(SnackBar(
-                content: Text('Cpf precisa ter 11 números digitados!'),
-                duration: Duration(seconds: 3),
-              ));
-            } else if (txtcpf.text.length == 14) {
-              var cpf = txtcpf.text.replaceAll('.', '');
-              cpf = cpf.replaceAll('-', '');
-              var soma = 0;
-              var soma2 = 0;
-              var resto;
-              var resto2;
-              for (int i = 1; i <= 9; i++) {
-                soma = soma + int.parse(cpf[i - 1]) * (11 - i);
-              }
-              resto = (soma * 10) % 11;
-              if (resto == 10 || resto == 11) {
-                resto = 0;
-              }
-              for (int i = 1; i <= 10; i++) {
-                soma2 = soma2 + int.parse(cpf[i - 1]) * (12 - i);
-              }
-              resto2 = (soma2 * 10) % 11;
-              if (resto2 == 10 || resto2 == 11) {
-                resto2 = 0;
-              }
-              var entre = true;
-              if (cpf == '00000000000' ||
-                  cpf == '11111111111' ||
-                  cpf == '22222222222' ||
-                  cpf == '33333333333' ||
-                  cpf == '44444444444' ||
-                  cpf == '55555555555' ||
-                  cpf == '66666666666' ||
-                  cpf == '77777777777' ||
-                  cpf == '88888888888' ||
-                  cpf == '99999999999' ||
-                  resto != int.parse(cpf[9]) ||
-                  resto2 != int.parse(cpf[10])) {
-                entre = false;
+            /*if (editar == false) {
+                if (_image == null && fotoNoiva == null) {
                 _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('CPF inválido!'),
+                  content: Text('Tirar ou selecionar a foto do perfil!'),
                   duration: Duration(seconds: 3),
                 ));
-              } else if (txttelefone.text.length < 15) {
-                entre = false;
+              } else if (imagens == null) {
                 _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Celular precisa ter 11 números digitados!'),
+                  content: Text('Escolha as fotos do álbum!'),
                   duration: Duration(seconds: 3),
                 ));
-              } else if (_image != null) {
-                fotoPerfilN = _image;
-              } else if (_image == null) {
-                fotoPerfilN = fotoNoiva;
-              }
-              if (txtmensagem.text.isEmpty) {
+              } else if (txtnome.text == ' ') {
                 _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Deixe uma mensagem para suas amigas!'),
+                  content: Text('Digite o nome completo!'),
                   duration: Duration(seconds: 3),
                 ));
-              } else if (txtdata.text.isEmpty || txtdata.text.length < 10) {
+              } else if (txtcpf.text.length < 14) {
+                print(txtnome.text);
                 _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Prencha a data corretamente!'),
+                  content: Text('Cpf precisa ter 11 números digitados!'),
                   duration: Duration(seconds: 3),
                 ));
-              } else if (txthora.text.isEmpty) {
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Preencha o horário!'),
-                  duration: Duration(seconds: 3),
-                ));
-              } else if (txtestado.text.isEmpty) {
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Preencha o Estado!'),
-                  duration: Duration(seconds: 3),
-                ));
-              } else if (txtcidade.text.isEmpty) {
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Preencha a cidade!'),
-                  duration: Duration(seconds: 3),
-                ));
-              } else if (txtlogradouro.text.isEmpty) {
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Preencha a rua ou avenida!'),
-                  duration: Duration(seconds: 3),
-                ));
-              } else if (txtnumero.text.isEmpty) {
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Preencha o número do endereço!'),
-                  duration: Duration(seconds: 3),
-                ));
-              } else if (txtbairro.text.isEmpty) {
-                _scaffoldKey.currentState.showSnackBar(SnackBar(
-                  content: Text('Preencha o bairro!'),
-                  duration: Duration(seconds: 3),
-                ));
-              }
-              if (fotoPerfilN != null &&
-                  entre == true &&
-                  imagens != null &&
-                  txtbairro.text.isNotEmpty) {
-                Pessoa noiva = Pessoa();
-                noiva.fotoPerfil = fotoPerfilN.toString();
-                noiva.fotoAlbum = imagens;
-                noiva.nome = txtnome.text;
-                noiva.cpf = txtcpf.text;
-                noiva.telefone = txttelefone.text;
-                
-                Evento evento = Evento();
-                evento.msg = txtmensagem.text;
-                evento.data = txtdata.text;
-                evento.hora = txthora.text;
-                evento.cep = txtcep.text;
-                evento.uf = txtestado.text;
-                evento.logradouro = txtlogradouro.text;
-                evento.numero = txtnumero.text;
-                evento.complemento = txtcomplemento.text;
-                evento.bairro = txtbairro.text;
-                evento.cidade = txtcidade.text;
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Principal()));
-              }
+              } else if (txtcpf.text.length == 14) {
+                var cpf = txtcpf.text.replaceAll('.', '');
+                cpf = cpf.replaceAll('-', '');
+                var soma = 0;
+                var soma2 = 0;
+                var resto;
+                var resto2;
+                for (int i = 1; i <= 9; i++) {
+                  soma = soma + int.parse(cpf[i - 1]) * (11 - i);
+                }
+                resto = (soma * 10) % 11;
+                if (resto == 10 || resto == 11) {
+                  resto = 0;
+                }
+                for (int i = 1; i <= 10; i++) {
+                  soma2 = soma2 + int.parse(cpf[i - 1]) * (12 - i);
+                }
+                resto2 = (soma2 * 10) % 11;
+                if (resto2 == 10 || resto2 == 11) {
+                  resto2 = 0;
+                }
+                var entre = true;
+                if (cpf == '00000000000' ||
+                    cpf == '11111111111' ||
+                    cpf == '22222222222' ||
+                    cpf == '33333333333' ||
+                    cpf == '44444444444' ||
+                    cpf == '55555555555' ||
+                    cpf == '66666666666' ||
+                    cpf == '77777777777' ||
+                    cpf == '88888888888' ||
+                    cpf == '99999999999' ||
+                    resto != int.parse(cpf[9]) ||
+                    resto2 != int.parse(cpf[10])) {
+                  entre = false;
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('CPF inválido!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                } else if (txttelefone.text.length < 15) {
+                  entre = false;
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('Celular precisa ter 11 números digitados!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                } else if (_image != null) {
+                  fotoPerfilN = _image;
+                } else if (_image == null) {
+                  fotoPerfilN = fotoNoiva;
+                }
+                if (txtmensagem.text.isEmpty) {
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('Deixe uma mensagem para suas amigas!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                } else if (txtdata.text.isEmpty || txtdata.text.length < 10) {
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('Prencha a data corretamente!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                } else if (txthora.text.isEmpty) {
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('Preencha o horário!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                } else if (txtestado.text.isEmpty) {
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('Preencha o Estado!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                } else if (txtcidade.text.isEmpty) {
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('Preencha a cidade!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                } else if (txtlogradouro.text.isEmpty) {
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('Preencha a rua ou avenida!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                } else if (txtnumero.text.isEmpty) {
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('Preencha o número do endereço!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                } else if (txtbairro.text.isEmpty) {
+                  _scaffoldKey.currentState.showSnackBar(SnackBar(
+                    content: Text('Preencha o bairro!'),
+                    duration: Duration(seconds: 3),
+                  ));
+                }
+                if (fotoPerfilN != null &&
+                    entre == true &&
+                    imagens != null &&
+                    txtbairro.text.isNotEmpty) {
+                  Pessoa noiva = Pessoa();
+                  noiva.fotoPerfil = fotoPerfilN.toString();
+                  noiva.fotoAlbum = imagens;
+                  noiva.nome = txtnome.text;
+                  noiva.cpf = txtcpf.text;
+                  noiva.telefone = txttelefone.text;
+                  
+                  Evento evento = Evento();
+                  evento.msg = txtmensagem.text;
+                  evento.data = txtdata.text;
+                  evento.hora = txthora.text;
+                  evento.cep = txtcep.text;
+                  evento.uf = txtestado.text;
+                  evento.logradouro = txtlogradouro.text;
+                  evento.numero = txtnumero.text;
+                  evento.complemento = txtcomplemento.text;
+                  evento.bairro = txtbairro.text;
+                  evento.cidade = txtcidade.text;
+
+                  chama o serviço que salva os dados no banco
+                  selectedIndex = 0;
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Principal()));
+                }
+              } else {
+                  Pessoa noiva = Pessoa();
+                  noiva.fotoPerfil = fotoPerfilN.toString();
+                  noiva.fotoAlbum = imagens;
+                  noiva.nome = txtnome.text;
+                  noiva.cpf = txtcpf.text;
+                  noiva.telefone = txttelefone.text;
+                  
+                  Evento evento = Evento();
+                  evento.msg = txtmensagem.text;
+                  evento.data = txtdata.text;
+                  evento.hora = txthora.text;
+                  evento.cep = txtcep.text;
+                  evento.uf = txtestado.text;
+                  evento.logradouro = txtlogradouro.text;
+                  evento.numero = txtnumero.text;
+                  evento.complemento = txtcomplemento.text;
+                  evento.bairro = txtbairro.text;
+                  evento.cidade = txtcidade.text;
+
+                  chama serviço que edita os dados da noiva
+                  selectedIndex = 0;
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Principal()));
+                }
             }*/
+            selectedIndex = 0;
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Principal()));
           },

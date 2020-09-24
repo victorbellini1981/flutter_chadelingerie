@@ -60,6 +60,7 @@ class _PrincipalState extends State<Principal>
               PopupMenuItem(
                 child: GestureDetector(
                   onTap: () {
+                    editar = true;
                     selectedIndex = 0;
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Perfil()));
