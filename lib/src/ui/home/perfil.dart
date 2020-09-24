@@ -21,6 +21,10 @@ class _PerfilState extends State<Perfil> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<bool> opcao = new List<bool>();
+  List imagens; // album de fotos
+  var _image; //foto do perfil
+  bool albumServidor =
+      false; //verifica se fotos do album estão vindo do servidor
 
   @override
   void initState() {
@@ -44,6 +48,12 @@ class _PerfilState extends State<Perfil> {
   TextEditingController txtcomplemento = new TextEditingController();
   TextEditingController txtestado = new TextEditingController();
   TextEditingController txtmensagem = new TextEditingController();
+
+/*chamar função que trás todos os dados da pessoa e do evento onde idnoiva = 
+  idNoiva, se já tiver cadastrado aparecerão 
+  as informações nos campos e variavel albumServidor = true, se não campos ficam vazios.
+*/
+
 //função que busca dadosdo endereço através de um CEP fornecido pelo usuário
   consultaCep() async {
     String cep = txtcep.text;
@@ -75,7 +85,6 @@ class _PerfilState extends State<Perfil> {
 //função que abre a câmera do celular para tirar uma foto para o perfil da noiva
   final picker = ImagePicker();
   final picher = ImagePicker();
-  var _image;
 
   Future abreCamera() async {
     final picture = await picker.getImage(source: ImageSource.camera);
@@ -120,9 +129,9 @@ class _PerfilState extends State<Perfil> {
   }
 
 // função que adiciona imagens no álbum (no máximo 30 fotos)
-  List imagens;
 
   Future adicionaFotos() async {
+    albumServidor = false;
     final albumFotos = await MultiImagePicker.pickImages(
       maxImages: 30,
     );
@@ -170,13 +179,26 @@ class _PerfilState extends State<Perfil> {
 
     final album = imagens == null
         ? Text("Nenhuma foto Selecionada")
-        : instance = CarouselSlider(
-            options: CarouselOptions(),
-            items: imagens
-                .map((item) => Container(
-                    child: AssetThumb(asset: item, width: 300, height: 300)))
-                .toList(),
-          );
+        : albumServidor == false
+            ? instance = CarouselSlider(
+                options: CarouselOptions(),
+                items: imagens
+                    .map((item) => Container(
+                        child:
+                            AssetThumb(asset: item, width: 300, height: 300)))
+                    .toList(),
+              )
+            : instance = CarouselSlider(
+                options: CarouselOptions(),
+                items: imagens
+                    .map((item) => Container(
+                          width: 300,
+                          height: 300,
+                          child: Image.network(
+                              'https://sistemaagely.com.br:8345/' + item),
+                        ))
+                    .toList(),
+              );
 
     final nome = TextFormField(
       decoration: const InputDecoration(
@@ -726,7 +748,6 @@ class _PerfilState extends State<Perfil> {
                 evento.complemento = txtcomplemento.text;
                 evento.bairro = txtbairro.text;
                 evento.cidade = txtcidade.text;
-                print(noiva.fotoPerfil);
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Principal()));
               }

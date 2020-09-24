@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cha_de_lingerie/core/utils.dart';
 import 'package:cha_de_lingerie/src/models/Produtos.dart';
-import 'package:cha_de_lingerie/src/models/Usuario.dart';
+//import 'package:cha_de_lingerie/src/models/Usuario.dart';
 import 'package:cha_de_lingerie/src/public/globals.dart';
 import 'package:cha_de_lingerie/src/ui/home/principal.dart';
 import 'package:flutter/cupertino.dart';
@@ -171,13 +171,15 @@ class _LingeriesState extends State<Lingeries> {
                           },
                         )
                       : CarouselSlider(
-                          options: CarouselOptions(aspectRatio: 44 / 44),
+                          options: CarouselOptions(/*aspectRatio: 44 / 44*/),
                           items: linkProd
                               .map((item) => InkWell(
                                   onTap: () {
                                     Navigator.of(context).pop();
                                   },
                                   child: Container(
+                                    width: 200,
+                                    height: 200,
                                     child: Image.network(
                                         'https://sistemaagely.com.br:8345/' +
                                             item),

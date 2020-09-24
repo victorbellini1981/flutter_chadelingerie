@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cha_de_lingerie/src/models/Produtos.dart';
 import 'package:cha_de_lingerie/src/models/Usuario.dart';
-import 'package:cha_de_lingerie/src/models/UsuarioLembrar.dart';
+//import 'package:cha_de_lingerie/src/models/UsuarioLembrar.dart';
 import 'package:cha_de_lingerie/src/public/globals.dart';
 import 'package:cha_de_lingerie/src/ui/home/perfil.dart';
 import 'package:cha_de_lingerie/src/ui/login/cadastro.dart';
@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:cha_de_lingerie/src/public/style.dart';
 import 'package:cha_de_lingerie/core/utils.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -31,6 +31,7 @@ class _LoginState extends State<Login> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var list;
+  var idUsuario;
 
   @override
   void initState() {
@@ -224,7 +225,8 @@ class _LoginState extends State<Login> {
       selectedIndex =
           0; // variável que indica a tela que vai abrir no body da página principal
       // no caso, a Inicial()
-      fotoNoiva = null;
+      fotoNoiva =
+          'https://scontent.fmoc5-1.fna.fbcdn.net/v/t1.0-9/118970883_3297674166986457_4508538385990977723_n.jpg?_nc_cat=103&_nc_sid=09cbfe&_nc_eui2=AeGbuDH8xTYVyat6_v8pMd_KIHBN6-mG9AMgcE3r6Yb0A0Oqv4gKZWceKYw303wVELwry3rr90gljh-MZ9SrojXk&_nc_ohc=IxBBZyFoXeQAX8XV6-w&_nc_ht=scontent.fmoc5-1.fna&oh=609048967840c17855d010876c01a10b&oe=5F7B500E';
       nomeNoiva = ' Marjorie Rafaela';
       emailNoiva = 'majurap@gmail.com';
       lista2();
@@ -246,10 +248,17 @@ class _LoginState extends State<Login> {
             final prefs = await SharedPreferences.getInstance();
             prefs.setString('usuarioLembrar', json.encode(usuarioLembrar));
           }
-          idNoiva = obj["id"];
-          nomeNoiva = obj["nome"];
-          fotoNoiva = obj["fotoPerfil"];
-          emailNoiva = obj["email"];
+          idUsuario = obj["idusuario"];
+          emailNoiva = obj['email];
+                    
+          /*chama serviço que trás os dados da pessoa onde idusuario for igual 
+          id do usuario logado, se já tiver cadastrados os dados 
+          idNoiva = retorno['obj']["idnoiva"];
+          nomeNoiva = retorno['obj']["nome"];
+          fotoNoiva = retorno['obj']["fotoPerfil"];
+          chama pagina principal se não
+          idNoiva = retorno['obj']["idnoiva"];
+          chama pagina perfil*/
 
           lista2();
           Navigator.push(
