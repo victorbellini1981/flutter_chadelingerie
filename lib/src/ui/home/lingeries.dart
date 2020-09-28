@@ -85,7 +85,8 @@ class _LingeriesState extends State<Lingeries> {
 
   // função que detalha a lingerie escolhida
   detalhesP() async {
-    Map retorno = await promessaB(_scaffoldKey, "GetProduto", referenciaP);
+    Map retorno =
+        await promessaB(_scaffoldKey, "GetProduto", "referencia", referenciaP);
     if (retorno["situacao"] == "sucesso") {
       linkProd = [];
       linkP = retorno['obj']['link'];

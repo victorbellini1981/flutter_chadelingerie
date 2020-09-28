@@ -147,7 +147,7 @@ class _LoginState extends State<Login> {
         emailNoiva = "${profileData['email']}";
 
         Usuario usuario = Usuario();
-        usuario.email = "${profileData['email']}";
+        usuario.email = emailNoiva;
         usuario.senha = "123456";
 
         Navigator.push(
@@ -253,11 +253,11 @@ class _LoginState extends State<Login> {
             final prefs = await SharedPreferences.getInstance();
             prefs.setString('usuarioLembrar', json.encode(usuarioLembrar));
           }
-          idUsuario = obj["idusuario"];
+          
           emailNoiva = obj['email];
                     
-          /*chama serviço que trás os dados da pessoa onde idusuario for igual 
-          id do usuario logado, se já tiver cadastrados os dados 
+          /*chama serviço que trás os dados da pessoa onde emailNoiva for igual 
+          email da noiva logada, se já tiver cadastrados os dados 
           idNoiva = retorno['obj']["idnoiva"];
           nomeNoiva = retorno['obj']["nome"];
           fotoNoiva = retorno['obj']["fotoPerfil"];
