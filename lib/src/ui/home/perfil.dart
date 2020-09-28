@@ -20,10 +20,10 @@ class Perfil extends StatefulWidget {
 class _PerfilState extends State<Perfil> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
-  List<bool> opcao = new List<bool>();
+
   List imagens; // album de fotos
   var _image; //foto do perfil
-  bool albumServidor =
+  bool fotosServidor =
       false; //verifica se fotos do album estão vindo do servidor
 
   @override
@@ -34,6 +34,7 @@ class _PerfilState extends State<Perfil> {
     getUrlServidor();
   }
 
+// controladores de texto
   TextEditingController txtnome = new TextEditingController();
   TextEditingController txtemail = new TextEditingController();
   TextEditingController txttelefone = new TextEditingController();
@@ -82,10 +83,11 @@ class _PerfilState extends State<Perfil> {
     });
   }
 
-//função que abre a câmera do celular para tirar uma foto para o perfil da noiva
+// variáveis utilizadas para tirar ou escolher a foto do perfil
   final picker = ImagePicker();
   final picher = ImagePicker();
 
+//função que abre a câmera do celular para tirar uma foto para o perfil da noiva
   Future abreCamera() async {
     final picture = await picker.getImage(source: ImageSource.camera);
 
@@ -94,7 +96,7 @@ class _PerfilState extends State<Perfil> {
     });
   }
 
-//função que abre a câmera do celular para tirar uma foto para o perfil da noiva
+//função que abre a galeria do celular para escolher uma foto para o perfil da noiva
   Future abreGaleria() async {
     final gallery = await picher.getImage(source: ImageSource.gallery);
 
@@ -103,7 +105,7 @@ class _PerfilState extends State<Perfil> {
     });
   }
 
-// que verifica se deu certo a conexão com a camera e galeria do celular
+// função que verifica se deu certo a conexão com a camera e galeria do celular
   void _handleVideo(PickedFile file) {}
 
   void _handleImage(PickedFile file) {}
@@ -131,7 +133,7 @@ class _PerfilState extends State<Perfil> {
 // função que adiciona imagens no álbum (no máximo 30 fotos)
 
   Future adicionaFotos() async {
-    albumServidor = false;
+    fotosServidor = false;
     final albumFotos = await MultiImagePicker.pickImages(
       maxImages: 30,
     );
@@ -142,11 +144,25 @@ class _PerfilState extends State<Perfil> {
 
 // variável do tipo carrossel slider para mostrar fotos selecionadas na galeria do cel
   CarouselSlider instance;
-// verifica se usuário já cadastrou sua foto, caso sim aparece a foto cadastrada senão
-// aparece Texto 'Nenhuma imagem selecionada'
-  _fotoDoPerfil(profileData) {
+/*
+  se usuário não selecionou ou tirou a foto do perfil, aparece nenhuma imagem 
+  selecionada, se ele já cadastrou a foto e a foto está vindo do servidor
+  retorna um container com a foto do servidor, se não, ele entrou pelo facebook
+  ou google, aí aparece um container com a foto do perfil do google ou face
+ */
+  _fotoDoPerfil() {
     if (fotoNoiva == null) {
       return Text('Nenhuma imagem selecionada');
+    } else if (fotosServidor == true) {
+      return Container(
+        height: 300,
+        width: 300,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                    'https://sistemaagely.com.br:8345/' + fotoNoiva))),
+      );
     } else {
       return Container(
         height: 300,
@@ -179,7 +195,9 @@ class _PerfilState extends State<Perfil> {
 
     final album = imagens == null
         ? Text("Nenhuma foto Selecionada")
-        : albumServidor == false
+        : fotosServidor ==
+                false // se não tiver nenhuma foto cadastrada ainda abre um slider para fotos
+            // do celular
             ? instance = CarouselSlider(
                 options: CarouselOptions(),
                 items: imagens
@@ -189,6 +207,7 @@ class _PerfilState extends State<Perfil> {
                     .toList(),
               )
             : instance = CarouselSlider(
+                // se não abre slider para fotos do servidor
                 options: CarouselOptions(),
                 items: imagens
                     .map((item) => Container(
@@ -519,7 +538,7 @@ class _PerfilState extends State<Perfil> {
         SizedBox(height: 10),
         Center(
             child: _image == null
-                ? _fotoDoPerfil(fotoDaNoiva)
+                ? _fotoDoPerfil()
                 : Container(
                     height: 300,
                     width: 300,
@@ -793,7 +812,7 @@ class _PerfilState extends State<Perfil> {
         child: Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         centerTitle: true,
         backgroundColor: Colors.red,
         title: Text("Chá de lingerie",

@@ -25,12 +25,16 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
+  // controladores de texto do login e senha
   final _loginController = TextEditingController();
   final _senhaController = TextEditingController();
-  bool lembrar = false;
+  bool lembrar =
+      false; // verifica se a noiva quer que lembre seu usuário e senha
+  // variáveis de autenticação do google
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var list;
+  var list2;
   var idUsuario;
 
   @override
@@ -54,7 +58,7 @@ class _LoginState extends State<Login> {
         opcao.add(false);
       }
       /* chamar função getlistapresnoiva, se retorno situação = sucesso
-      list2 = retorno[obj], presentesSel = list.map (produto)...*/
+      list2 = retorno[obj], presentesSel = list2.map (produto)...*/
       for (int i = 0; i < listaProdutos.length; i++) {
         for (int j = 0; j < presentesSel.length; j++) {
           if (listaProdutos[i].descricao == presentesSel[j].descricao) {
@@ -116,7 +120,7 @@ class _LoginState extends State<Login> {
     });
   }
 
-// função para conectar no aplicativo com os dados de usuário do google
+// função para conectar no aplicativo com os dados de usuário do facebook
   void initiateFacebookLogin() async {
     lista2();
     var facebookLoginResult =
@@ -201,7 +205,7 @@ class _LoginState extends State<Login> {
         return null;
       },
     );
-
+// switch que se true, noiva quer que lembre usuário e senha
     final chkLembrar = Row(
       children: <Widget>[
         SizedBox(width: 80),
@@ -316,7 +320,7 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-
+// botão esqueci minha senha
     final lnkEsqueci = GestureDetector(
         child: Text("Esqueci minha senha",
             style: TextStyle(color: Colors.red, fontSize: 16)),

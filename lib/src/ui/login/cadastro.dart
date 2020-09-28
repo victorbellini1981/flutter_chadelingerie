@@ -18,6 +18,8 @@ class _CadastroState extends State<Cadastro> {
   }
 
 // tela de Cadastro simples, com campos e-mail, senha e função pra cadastro de usuario
+
+  //controladores de texto da senha e do login
   TextEditingController txtsenha = new TextEditingController();
   TextEditingController txtlogin = new TextEditingController();
 
@@ -66,6 +68,7 @@ class _CadastroState extends State<Cadastro> {
       },
     );
 
+    // realiza o cadastro da noiva
     void cadastrar() async {
       /*if (txtlogin.text.contains('@') && txtlogin.text.contains('.com')) {
         if (txtsenha.text.length >= 6 && txtsenha.text.length <= 8) {

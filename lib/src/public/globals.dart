@@ -2,7 +2,6 @@ library my_prj.globals;
 
 import 'package:cha_de_lingerie/src/models/UsuarioLembrar.dart';
 import 'package:cha_de_lingerie/src/public/ConfigApp.dart';
-import 'package:flutter/material.dart';
 
 ConfigApp configApp =
     ConfigApp("cha_de_lingerie", "_cha_de_lingerieServer", true);
@@ -27,7 +26,9 @@ List listaRecados;
 // variáveis de verificação se o filtro lingerie e o filtrocamisolas foram utilizados
 bool lin = false;
 bool cam = false;
+// variável que a noiva escolhe o tamanho da lingerie que ela quer pequisar
 var selecttam = 'T';
+// variável que marca a lingerie que o cliente escolheu para adicionar em sua lista
 List<bool> opcao = new List<bool>();
 List<bool> opcao2 = List<bool>();
 var editar = false; // verifica se vai alterar ou salvar os dados do perfil
