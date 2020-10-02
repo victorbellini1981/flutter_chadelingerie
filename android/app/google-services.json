@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "866715179835-24otnvk2p3jjpsaarantsibn51gqufcn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agely.chadelingerie",
+            "certificate_hash": "f1dda5901ece1e29363d35b3e29a04dcdc5b743f"
+          }
+        },
+        {
           "client_id": "866715179835-ankpgj9i39n1udrtmlun7bd21rl60bm3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
