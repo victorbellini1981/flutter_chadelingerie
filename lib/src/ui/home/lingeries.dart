@@ -83,6 +83,54 @@ class _LingeriesState extends State<Lingeries> {
     }
   }
 
+  void salvar() async {
+    // insere os produtos escolhidos pela noiva da lista de produtos disponíveis
+    //  para a lista de presentes da noiva
+    if (presentesSel.length == 0) {
+      for (int i = 0; i < listaProdutos.length; i++) {
+        if (opcao[i] == true) {
+          Produtos prod = Produtos();
+          prod.link = '${listaProdutos[i].link}';
+          prod.referencia = '${listaProdutos[i].referencia}';
+          prod.descricao = '${listaProdutos[i].descricao}';
+          prod.tamanhos = '${tamEscolhido[i]}';
+          prod.marca = '${listaProdutos[i].marca}';
+          prod.preco_tabela = double.parse('${listaProdutos[i].preco_tabela}');
+          presentesSel.add(prod);
+        }
+      }
+    } else {
+      // se já tiver sido escolhida a lista de presentes, ele percorre essa lista,
+      // e ve se algum produto foi escolhido novamente, caso tenha sido ele não é
+      // adicionado novamente
+      for (int i = 0; i < listaProdutos.length; i++) {
+        comp = false;
+        if (opcao[i] == true) {
+          for (int j = 0; j < presentesSel.length; j++) {
+            if (listaProdutos[i].descricao == presentesSel[j].descricao) {
+              comp = true;
+              break;
+            }
+          }
+          if (comp == false) {
+            Produtos prod = Produtos();
+            prod.link = '${listaProdutos[i].link}';
+            prod.referencia = '${listaProdutos[i].referencia}';
+            prod.descricao = '${listaProdutos[i].descricao}';
+            prod.tamanhos = '${tamEscolhido[i]}';
+            prod.marca = '${listaProdutos[i].marca}';
+            prod.preco_tabela =
+                double.parse('${listaProdutos[i].preco_tabela}');
+            presentesSel.add(prod);
+          }
+        }
+      }
+      selectedIndex = 2;
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Principal()));
+    }
+  }
+
   // função que detalha a lingerie escolhida
   detalhesP() async {
     Map retorno =
@@ -311,11 +359,13 @@ class _LingeriesState extends State<Lingeries> {
                             } else {
                               opcao[indexP] = true;
                               Navigator.of(context).pop();
+                              salvar();
                             }
                           } else {
                             tamEscolhido[indexP] = selecttam;
                             opcao[indexP] = true;
                             Navigator.of(context).pop();
+                            salvar();
                           }
                         },
                         shape: new RoundedRectangleBorder(
@@ -496,53 +546,9 @@ class _LingeriesState extends State<Lingeries> {
             ),
           ),
           onPressed: () {
-            // insere os produtos escolhidos pela noiva da lista de produtos disponíveis
-            //  para a lista de presentes da noiva
-            if (presentesSel.length == 0) {
-              for (int i = 0; i < listaProdutos.length; i++) {
-                if (opcao[i] == true) {
-                  Produtos prod = Produtos();
-                  prod.link = '${listaProdutos[i].link}';
-                  prod.referencia = '${listaProdutos[i].referencia}';
-                  prod.descricao = '${listaProdutos[i].descricao}';
-                  prod.tamanhos = '${tamEscolhido[i]}';
-                  prod.marca = '${listaProdutos[i].marca}';
-                  prod.preco_tabela =
-                      double.parse('${listaProdutos[i].preco_tabela}');
-                  presentesSel.add(prod);
-                }
-              }
-            } else {
-              // se já tiver sido escolhida a lista de presentes, ele percorre essa lista,
-              // e ve se algum produto foi escolhido novamente, caso tenha sido ele não é
-              // adicionado novamente
-              for (int i = 0; i < listaProdutos.length; i++) {
-                comp = false;
-                if (opcao[i] == true) {
-                  for (int j = 0; j < presentesSel.length; j++) {
-                    if (listaProdutos[i].descricao ==
-                        presentesSel[j].descricao) {
-                      comp = true;
-                      break;
-                    }
-                  }
-                  if (comp == false) {
-                    Produtos prod = Produtos();
-                    prod.link = '${listaProdutos[i].link}';
-                    prod.referencia = '${listaProdutos[i].referencia}';
-                    prod.descricao = '${listaProdutos[i].descricao}';
-                    prod.tamanhos = '${tamEscolhido[i]}';
-                    prod.marca = '${listaProdutos[i].marca}';
-                    prod.preco_tabela =
-                        double.parse('${listaProdutos[i].preco_tabela}');
-                    presentesSel.add(prod);
-                  }
-                }
-              }
-            }
             //ListaProdutos lista = ListaProdutos();
             //lista.listadepresentes = presentesSel;
-
+            //presentesSel = [];
             selectedIndex = 1;
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Principal()));

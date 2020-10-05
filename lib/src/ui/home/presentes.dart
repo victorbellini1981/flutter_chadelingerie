@@ -35,8 +35,10 @@ class _PresentesState extends State<Presentes> {
   var preco_tabelaProd = 0.0;
 
   void listaPresNoiva() {
-    /* chamar função getlistapresnoiva, se retorno situação = sucesso
-      list2 = retorno[obj], presentesSel = list.map (produto)...*/
+    /* if presentessel.lenght == 0
+    chamar função getlistapresnoiva, se retorno situação = sucesso
+      list2 = retorno[obj], presentesSel = list.map (produto)...
+      else presentesSel = [], e faz procedimento acima*/
     listaProdutos = normal;
     opcao = [];
     for (int i = 0; i < listaProdutos.length; i++) {
@@ -122,6 +124,18 @@ class _PresentesState extends State<Presentes> {
                               color: Colors.red,
                               fontSize: 15,
                             )),
+                        GestureDetector(
+                            child: Text("Excluir Produto",
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 12)),
+                            onTap: () {
+                              presentesSel.remove(presentesSel[index]);
+                              selectedIndex = 1;
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Principal()));
+                            }),
                       ],
                     ),
                   );

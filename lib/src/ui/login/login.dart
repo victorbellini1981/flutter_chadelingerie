@@ -9,7 +9,6 @@ import 'package:cha_de_lingerie/src/ui/login/cadastro.dart';
 import 'package:cha_de_lingerie/src/ui/login/login_recuperasenha.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:cha_de_lingerie/src/public/style.dart';
 import 'package:cha_de_lingerie/core/utils.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -369,7 +368,6 @@ class _LoginState extends State<Login> {
         key: _formKey,
         child: Container(
           padding: EdgeInsets.only(left: 50, right: 50),
-          decoration: boxFundo,
           child: SingleChildScrollView(
             child: ConstrainedBox(
               constraints:
